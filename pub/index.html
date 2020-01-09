@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+  <link rel="stylesheet" href="side-menu.css">
+</head>
+<body>
+
+  <!-- Side Menu -->
+  <div id="side-menu" class="side-menu">
+    <a href="javascript:void(0)" class="side-menu-close" onclick="sideMenuClose()">&times;</a>
+    <a href="#">Consultas</a>
+    <a href="#">Inserir Dados</a>
+    <a href="#">Usuário</a>
+    <a href="#">Sobre</a>
+  </div>
+
+  <!-- open menu -->
+
+  <span id="open-menu" onclick="sideMenuOpen()">open</span>
+
+  <!-- add workspace content -->
+
+  <div id="workspace">
+    <h1>This is a workspace</h1>
+
+    <div style="display:inline-block;"><a href="#">A<br>ART.FEM</a></div>
+    <div style="display:inline-block;"><a href="#">casa<br>house.FEM</a></div>
+    <div style="display:inline-block;"><a href="#">caiu<br>fall.PAST.PERF.3.SG</a></div>
+    <br>
+    "a casa caiu"
+  </div>
+
+
+  <script type="text/javascript">
+    /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+    function sideMenuOpen() {
+      document.getElementById("side-menu").style.width = "250px";
+      document.getElementById("workspace").style.marginLeft = "250px";
+    }
+    /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+    function sideMenuClose() {
+      document.getElementById("side-menu").style.width = "0";
+      document.getElementById("workspace").style.marginLeft = "0";
+    }
+  </script>
+
+</body>

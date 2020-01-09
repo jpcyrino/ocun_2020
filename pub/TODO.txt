@@ -1,0 +1,17 @@
+Infra Estrutura de DB e conexão
+Inserção BULK
+Inserção Frase por Frase
+Exclusão de Frase
+Atualização de Frase
+
+Criação de Abreviações e reconhecimento de significados funcionais
+Categorização de Significados (raízes com entidade, evento, propriedade)
+
+
+Exibição de Frases
+Página do Morfema
+
+
+Tabelas:
+Morfema: ID FONTE FORMA SIGNIFICADO
+Abreviações: ID FONTE SIGNIFICADO EXPLICAÇÃO
