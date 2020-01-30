@@ -1,0 +1,60 @@
+1. Òcun 0.3
+  - Interface com o usuário será simplificada (nada de janelas, etc.) para acelerar o desenvolvimento de ferramentas.
+  - Estrutura de banco de dados alterada
+    * possibilidade de alterar os dados (corrigir)
+    * possibilidade de fazer associações entre dados, permitindo comparações. --> Essa feature vai ser essencial para a atividade
+    que quero passar a vocês.
+  - Ocun se desenvolverá em módulos a partir de então e o desenvolvimento de módulos será um projeto de linguística computacional a parte em 2020:
+    - Módulos para cálculos estatísticos específicos
+    - Módulo para checagem de coerência gramatical
+    - Módulos de parser
+    - etc.
+
+    Lançamento previsto: 25 de janeiro
+
+2. Resultados até agora:
+  - Inserção de Dados e algumas hipóteses estatísticas preliminares.
+  - Temos um deadline de congressos no fim do mês, acho que podemos tentar apresentar hipóteses e esses resultados, como trabalho em andamento.
+  25 de janeiro CBM - UFPR
+  31 de janeiro Alfal - Bolívia
+
+  - Próximos passos: classificar raízes em Evento, Entidade e Propriedade, quando o Ocun 3 ficar pronto. Preciso de diligência por parte dos envolvidos.
+
+  - Artigos em andamento:
+    - Ocun
+    - Probabilidades para linguistas
+
+3. Curso de programação:
+  A partir da semana que vem, 3x por semana online.
+  1 Parte: Algoritmos e estruturas de Dados (C)
+    - Algoritmos e introdução à linguagem C
+    - Tipos de dados primários
+    - Estruturas de seleção (condicionais)
+    - Laços
+    - Vetores
+    - Ponteiros e alocação dinâmica de memória.
+  2 Parte: Programação em alto nível com Python
+    - Estruturas de dados e de controle
+    - Lendo e gravando arquivos
+    - Arquivos de dados (JSON, CSV)
+    - Programação funcional
+    - Usando o Numpy e o Pandas
+    - Interação entre python e dados de Ocun
+    - Introdução à Programação Orientada a Objetos
+  3 Parte: Programação Web
+    - Como funciona um site: frontend, backend
+    - Frontend: HTML e CSS
+    - Javascript
+  4 Parte: Programação Backend e orientada a objetos em PHP 7
+    - Introdução ao php
+    - Banco de dados: MySQL
+    - Explorando o banco de dados de Ocun
+    - Estrutura MVC
+    - Princípio SOLID de engenharia de software
+    - As classes de Ocun
+    - Interação frontend Backend (GET, POST, Ajax)
+    - Desenvolvendo módulos para Ocun
+
+4. Disciplinas 2020-1
+  SINTAXE: quar e sex 9h00
+  FUNDAMENTOS DE TEORIA DA GRAMÁTICA: sex: 13h00

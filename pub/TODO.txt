@@ -1,5 +1,4 @@
-Infra Estrutura de DB e conexão
-Inserção BULK
+Encode
 Inserção Frase por Frase
 Exclusão de Frase
 Atualização de Frase
