@@ -16,8 +16,7 @@
   <div class="dropdown">
     <button class="dropbtn">Administrativo</button>
     <div class="dropdown-content">
-      <a href="index.php?page=AddLanguage">Adicionar Língua</a>
-      <a href="index.php?page=AddSource">Adicionar fonte</a>
+      <a href="index.php?page=SourceMenu">Fontes de Dados</a>
       <a href="index.php?page=FeedBulk">Inserir dados em Massa</a>
     </div>
   </div>
@@ -30,5 +29,6 @@
     </div>
   </div>
   <a href="#about">About</a>
+  <a href=""><?=$min?></a>
   <a href="javascript:void(0);" class="icon" onclick="topbarResponsive()">&#9776;</a>
 </div>

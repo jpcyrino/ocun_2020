@@ -7,6 +7,7 @@
         <option value="<?=$language['id']?>"><?=$language['name']?></option>
       <?php endforeach; ?>
     </select>
+    <a href="?page=AddLanguage">Nova língua...</a>
   </div>
   <div class="form-field"><p>Título: </p><input type="text" name="name" required></div>
   <div class="form-field"><p>Autor: </p><input type="text" name="author" required></div>

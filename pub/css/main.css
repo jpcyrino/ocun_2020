@@ -82,6 +82,7 @@ article .form-field input {
   padding: 10px;
   font-size: 1rem;
   transition: 0.2s;
+  width: 500px;
 }
 
 article .form-field input[type=submit] {
@@ -94,6 +95,7 @@ article .form-field input[type=submit] {
   padding: 10px;
   font-size: 1rem;
   transition: 0.2s;
+  width: 150px;
 }
 
 article .form-field input:hover{

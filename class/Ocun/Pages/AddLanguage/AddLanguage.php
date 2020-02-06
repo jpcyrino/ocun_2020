@@ -25,7 +25,8 @@ class AddLanguage extends Controller{
 // Elaborar funcionamento dos templates.. frontend..
   public static function load() {
     if(self::handlePOST()){
-      $status = "Registro adicionado";
+      header("Location: index.php?page=AddSource");
+      die();
     }
     echo self::loadTemplate("/../AddLanguage/template.html.php");
   }
