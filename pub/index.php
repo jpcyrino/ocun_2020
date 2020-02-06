@@ -5,8 +5,9 @@
 
  session_start();
  Session::CheckRegisteredLevel();
- $_SESSION['level'] = 5;
+ $_SESSION['level'] = 7;
  $_SESSION['id'] = 1;
+ $_SESSION['name'] = 'João Paulo';
 
 if(isset($_GET['page'])){
   $class = $_GET['page'];

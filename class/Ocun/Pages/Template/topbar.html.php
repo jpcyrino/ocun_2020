@@ -3,35 +3,38 @@
      Editar atributos em /pub/css/topbar.css -->
 
 <div class="topbar" id="topbar">
-  <a href="#home"><img src="svg/logo.svg" height="20px"></a>
-  <a href="#home" class="active">Início</a>
+  <a href="#home"><img src="svg/logo.svg" height="23px"></a>
+  <?php if(isset($_SESSION['user'])): ?>
+    <div class="dropdown">
+      <button id="usrtopbar" class="dropbtn"><?=$_SESSION['name']?></button>
+      <div class="dropdown-content">
+        <a href="?page=UserProfile"><i class="material-icons">account_box</i>  Perfil</a>
+        <a href="?page=LogOut"><i class="material-icons">exit_to_app</i>  Sair</a>
+      </div>
+    </div>
+  <?php else: ?>
+    <a href="?page=RegisterUser">Cadastre-se!</a>
+  <?php endif;?>
   <div class="dropdown">
-    <button class="dropbtn">Consultas</button>
+    <button class="dropbtn">Navegar</button>
     <div class="dropdown-content">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
+      <a href="#">Línguas</a>
+      <a href="#">Estudos</a>
+      <a href="#">Sobre a plataforma Òcun</a>
     </div>
   </div>
   <?php if($_SESSION['level'] > 2): ?>
     <div class="dropdown">
-      <button class="dropbtn">Administrativo</button>
+      <button class="dropbtn">Dados</button>
       <div class="dropdown-content">
-        <a href="index.php?page=SourceMenu">Fontes de Dados</a>
+        <a href="index.php?page=SourceMenu"><i class="material-icons">subject</i>  Fontes de Dados</a>
         <?php if($_SESSION['level'] > 5): ?>
-          <a href="index.php?page=FeedBulk">Inserir dados em Massa</a>
+          <a href="index.php?page=FeedBulk"><i class="material-icons">add_to_photos</i>  Inserir dados em Massa</a>
         <?php endif;?>
       </div>
     </div>
   <?php endif; ?>
-  <div class="dropdown">
-    <button class="dropbtn">Usuário</button>
-    <div class="dropdown-content">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
-    </div>
-  </div>
-  <a href="#about">About</a>
+  <a href="?page=OcunHelp">Ajuda</a>
+
   <a href="javascript:void(0);" class="icon" onclick="topbarResponsive()">&#9776;</a>
 </div>

@@ -2,7 +2,7 @@
 
 /* Add a black background color to the top navigation */
 .topbar {
-  background-color: black;
+  background-color: #333333;
   overflow: hidden;
 }
 
@@ -24,6 +24,17 @@
   display: none;
 }
 
+#usrtopbar{
+  background-color: #0892d0;
+  font-size: 17px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 16px 18px;
+  font-family: inherit;
+  margin: 0;
+}
+
 /* Dropdown container - needed to position the dropdown content */
 .dropdown {
   float: left;
@@ -40,7 +51,6 @@
   background-color: inherit;
   font-family: inherit;
   margin: 0;
-  transition: 0.5s;
 }
 
 /* Style the dropdown content (hidden by default) */
@@ -64,7 +74,7 @@
 }
 
 /* Add a dark background on topnav links and the dropdown button on hover */
-.topbar a:hover, .dropdown:hover .dropbtn {
+.topbar a:hover, .dropdown:hover .dropbtn, #usrtopbar:hover {
   background-color: #c7c7c7;
   color: white;
 }
