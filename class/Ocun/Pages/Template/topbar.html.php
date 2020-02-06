@@ -13,13 +13,17 @@
       <a href="#">Link 3</a>
     </div>
   </div>
-  <div class="dropdown">
-    <button class="dropbtn">Administrativo</button>
-    <div class="dropdown-content">
-      <a href="index.php?page=SourceMenu">Fontes de Dados</a>
-      <a href="index.php?page=FeedBulk">Inserir dados em Massa</a>
+  <?php if($_SESSION['level'] > 2): ?>
+    <div class="dropdown">
+      <button class="dropbtn">Administrativo</button>
+      <div class="dropdown-content">
+        <a href="index.php?page=SourceMenu">Fontes de Dados</a>
+        <?php if($_SESSION['level'] > 5): ?>
+          <a href="index.php?page=FeedBulk">Inserir dados em Massa</a>
+        <?php endif;?>
+      </div>
     </div>
-  </div>
+  <?php endif; ?>
   <div class="dropdown">
     <button class="dropbtn">Usuário</button>
     <div class="dropdown-content">
@@ -29,6 +33,5 @@
     </div>
   </div>
   <a href="#about">About</a>
-  <a href=""><?=$min?></a>
   <a href="javascript:void(0);" class="icon" onclick="topbarResponsive()">&#9776;</a>
 </div>

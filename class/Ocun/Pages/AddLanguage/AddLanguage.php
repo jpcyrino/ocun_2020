@@ -2,6 +2,7 @@
 namespace Ocun\Pages\AddLanguage;
 use Ocun\Pages\Controller;
 use Ocun\Database\Linguistic\Language;
+use Ocun\Database\User\Session;
 
 class AddLanguage extends Controller{
 
@@ -24,6 +25,7 @@ class AddLanguage extends Controller{
 
 // Elaborar funcionamento dos templates.. frontend..
   public static function load() {
+    Session::DenyAccess(3);
     if(self::handlePOST()){
       header("Location: index.php?page=AddSource");
       die();

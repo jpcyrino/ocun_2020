@@ -3,6 +3,7 @@ namespace Ocun\Pages\AddSource;
 use Ocun\Pages\Controller;
 use Ocun\Database\Linguistic\Source;
 use Ocun\Database\Linguistic\Language;
+use Ocun\Database\User\Session;
 
 class AddSource extends Controller{
 
@@ -22,13 +23,14 @@ class AddSource extends Controller{
   private static function handlePOST(){
     if(self::checkPOST()){
         $src = new Source;
-        return $src->store([
+        $src->store([
           $_POST['language'],
           $_POST['name'],
           $_POST['author'],
           $_POST['year'],
           $_POST['publisher']
         ]);
+        return $src->storeAccess($_POST['language'], $_POST['name']);
     } else {
       return false;
     }
@@ -36,6 +38,7 @@ class AddSource extends Controller{
 
 // Elaborar funcionamento dos templates.. frontend..
   public static function load() {
+    Session::DenyAccess(3);
     if(self::handlePOST()){
       header("Location: index.php?page=SourcePreferences&language={$_POST['language']}&name={$_POST['name']}");
       die();

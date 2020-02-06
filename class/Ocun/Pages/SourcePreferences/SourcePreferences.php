@@ -4,6 +4,7 @@ use Ocun\Pages\Controller;
 use Ocun\Database\Linguistic\Source;
 use Ocun\Database\Linguistic\Language;
 use Ocun\Database\Linguistic\Encode;
+use Ocun\Database\User\Session;
 
 class SourcePreferences extends Controller{
 
@@ -62,6 +63,7 @@ class SourcePreferences extends Controller{
   }
 
   public static function load() {
+    Session::DenyAccess(3);
     if(isset($_GET['id'])){
       self::$source = $_GET['id'];
     } elseif(isset($_GET['name'], $_GET['language'])) {

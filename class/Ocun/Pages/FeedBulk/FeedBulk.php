@@ -4,6 +4,7 @@ use Ocun\Bulk\BulkFeeder;
 use Ocun\Pages\Controller;
 use Ocun\Database\Linguistic\DataFeeder;
 use Ocun\Database\Linguistic\Source;
+use Ocun\Database\User\Session;
 
 class FeedBulk extends Controller {
 
@@ -20,6 +21,7 @@ class FeedBulk extends Controller {
   }
 
   public static function load(){
+    Session::DenyAccess(6);
     $status = self::handlePost();
     $src = new Source;
     $sources = $src->loadList();

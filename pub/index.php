@@ -1,6 +1,12 @@
 <?php
 
  include __DIR__ . '/../conf/autoload.php';
+ use Ocun\Database\User\Session;
+
+ session_start();
+ Session::CheckRegisteredLevel();
+ $_SESSION['level'] = 5;
+ $_SESSION['id'] = 1;
 
 if(isset($_GET['page'])){
   $class = $_GET['page'];
