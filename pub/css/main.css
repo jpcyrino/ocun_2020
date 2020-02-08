@@ -137,6 +137,17 @@ article table{
 
 }
 
+.morpheme, .sentence-editable{
+  border-style: solid;
+  border-width: thin;
+  padding: 5px;
+}
+
+.morpheme:hover, .sentence-editable:hover{
+  box-shadow: 1px 1px 8px black;
+  color: black;
+}
+
 .status {
   border-style: solid;
   border-width: thin;

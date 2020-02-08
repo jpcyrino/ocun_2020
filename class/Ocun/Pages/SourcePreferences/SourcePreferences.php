@@ -63,7 +63,7 @@ class SourcePreferences extends Controller{
   }
 
   public static function load() {
-    Session::DenyAccess(3);
+    Session::denyAccess(3);
     if(isset($_GET['id'])){
       self::$source = $_GET['id'];
     } elseif(isset($_GET['name'], $_GET['language'])) {

@@ -37,6 +37,15 @@ class Connection{
     }
   }
 
+  final protected function queryList($sql){
+    try {
+      return $this->connection->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+    catch (PDOException $e){
+      OcunException::printException($e);
+    }
+  }
+
 }
 
 

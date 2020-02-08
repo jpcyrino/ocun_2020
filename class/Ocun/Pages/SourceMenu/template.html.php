@@ -19,7 +19,7 @@
     <tr>
       <td style="padding-right: 20px;"><?=$source['name']?></td>
       <td style="padding-left: 20px; padding-right: 20px;"><?=$source['author']?>,<?=$source['year']?></td>
-      <td><button onclick="window.location.href = '?page=FeedSentence%id=<?=$source['id']?>'"><i class="material-icons">create</i></button></td>
+      <td><button onclick="window.location.href = '?page=FeedSentence&id=<?=$source['id']?>'"><i class="material-icons">create</i></button></td>
       <td><button onclick="window.location.href = '?page=SourcePreferences&id=<?=$source['id']?>'"><i class="material-icons">build</i></button></td>
     </tr>
   <?php endforeach;?>

@@ -25,7 +25,7 @@ class AddLanguage extends Controller{
 
 // Elaborar funcionamento dos templates.. frontend..
   public static function load() {
-    Session::DenyAccess(3);
+    Session::denyAccess(3);
     if(self::handlePOST()){
       header("Location: index.php?page=AddSource");
       die();

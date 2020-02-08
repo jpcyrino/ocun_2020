@@ -10,7 +10,7 @@ class SourceMenu extends Controller {
 
 
   public static function load(){
-    Session::DenyAccess(3);
+    Session::denyAccess(3);
     $src = new Source;
     $sources = $src->loadListAccess();
     echo self::loadTemplate("/../SourceMenu/template.html.php", ['sources' => $sources]);

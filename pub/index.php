@@ -4,9 +4,10 @@
  use Ocun\Database\User\Session;
 
  session_start();
- Session::CheckRegisteredLevel();
+ Session::checkRegisteredLevel();
  $_SESSION['level'] = 7;
  $_SESSION['id'] = 1;
+ $_SESSION['user'] = 'jjj@i.com';
  $_SESSION['name'] = 'João Paulo';
 
 if(isset($_GET['page'])){

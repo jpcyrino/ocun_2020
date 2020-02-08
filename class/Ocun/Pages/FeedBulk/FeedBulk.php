@@ -21,7 +21,7 @@ class FeedBulk extends Controller {
   }
 
   public static function load(){
-    Session::DenyAccess(6);
+    Session::denyAccess(6);
     $status = self::handlePost();
     $src = new Source;
     $sources = $src->loadList();
