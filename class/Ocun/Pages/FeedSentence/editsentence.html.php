@@ -10,6 +10,8 @@
     <input id="isend" type="submit" value="Salvar" disabled>
   </div>
 </form>
+<br>
+<button style="width: 200px; background-color: red; float: right;" onclick='window.location.href="?page=FeedSentence&id=<?=$id?>&delete=<?=$_GET['eid']?>"'>Apagar Dado!</button>
 <script>
 validateFeed();
 

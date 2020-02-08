@@ -6,7 +6,7 @@
  session_start();
  Session::checkRegisteredLevel();
  $_SESSION['level'] = 7;
- $_SESSION['id'] = 1;
+ $_SESSION['id'] = 2;
  $_SESSION['user'] = 'jjj@i.com';
  $_SESSION['name'] = 'João Paulo';
 

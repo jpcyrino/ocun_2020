@@ -24,6 +24,6 @@
     </tr>
   <?php endforeach;?>
   <tr>
-    <td><button href="?page=AddSource"><i class="material-icons">create_new_folder</i>Nova fonte...</button></td>
+    <td><button onclick="window.location.href = '?page=AddSource'"><i class="material-icons">create_new_folder</i>Nova fonte...</button></td>
   </tr>
 </table>

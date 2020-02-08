@@ -3,11 +3,14 @@
 <form action="index.php?page=FeedBulk" method="post">
   <div class="form-field">
     <p>Selecione a fonte:
-    <select name="source" required>
+    <select style="width: 400px;"name="source" required>
       <?php foreach($sources as $source): ?>
         <option value="<?=$source['id']?>"><?=$source['name']?></option>
       <?php endforeach; ?>
-    </select></p>
+    </select>
+    <input style="margin-left: 10px; max-width: 10px;" type='checkbox' name="confirm" value="ok" required>
+    <label for="confirm">Confirmo escolha da fonte</label>
+  </p>
   </div>
   <div class="form-field"><p>Cole os dados: </p><textarea id="bulk-box" name="bulk" required></textarea></div>
   <div class="form-field"><p>Preparar texto:</p><input type="button" onclick="separatorEqual()" value="'=' como separador"></div>

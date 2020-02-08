@@ -57,14 +57,25 @@ class FeedSentence extends Controller {
       $cl = new Cleanse;
       $cl->killSentence($_GET['sid']);
       $feed = new DataFeeder($_GET['id']);
-      $feed->feed($_POST['eoriginal'], $_POST['egloss'], $_POST['etranslation']);
+      $feed->feed(htmlspecialchars($_POST['eoriginal'], ENT_QUOTES, 'UTF-8'),
+      htmlspecialchars($_POST['egloss'], ENT_QUOTES, 'UTF-8'),
+      htmlspecialchars($_POST['etranslation'], ENT_QUOTES, 'UTF-8'));
     }
   }
 
   private function storeSentence(){
     if(isset($_POST['ioriginal'], $_POST['igloss'], $_POST['itranslation'])){
       $feed = new DataFeeder($_GET['id']);
-      $feed->feed($_POST['ioriginal'], $_POST['igloss'], $_POST['itranslation']);
+      $feed->feed(htmlspecialchars($_POST['ioriginal'], ENT_QUOTES, 'UTF-8'),
+      htmlspecialchars($_POST['igloss'], ENT_QUOTES, 'UTF-8'),
+      htmlspecialchars($_POST['itranslation'], ENT_QUOTES, 'UTF-8'));
+    }
+  }
+
+  private function deleteSentence(){
+    if(isset($_GET['delete'])){
+      $cl = new Cleanse;
+      $cl->killSentence($_GET['delete']);
     }
   }
 
@@ -79,6 +90,7 @@ class FeedSentence extends Controller {
     }
     self::storeEdit();
     self::storeSentence();
+    self::deleteSentence();
     $sentences = self::loadSentences($_GET['id']);
     if(isset($_GET['eid'])){
       $data = self::getSentenceData($_GET['eid'], $sentences);

@@ -42,6 +42,7 @@ article form {
   border-color: #aaaaaa;
   border-radius: 0px;
   padding: 20px;
+  width: 100%;
 }
 
 article .form-field {
@@ -83,7 +84,7 @@ article .form-field input {
   padding: 10px;
   font-size: 1rem;
   transition: 0.2s;
-  width: 500px;
+  width: 100%;
 }
 
 article .form-field input[type=submit] {

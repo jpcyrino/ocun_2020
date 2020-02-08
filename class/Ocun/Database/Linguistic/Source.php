@@ -34,7 +34,7 @@ Class Source extends ConnectionUpdatable{
 
   public function loadList(){
     try {
-      $sql = "SELECT * FROM `source`";
+      $sql = "SELECT * FROM `source` ORDER BY `name` ASC";
       return $this->connection->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e){
       OcunException::printException($e);

@@ -13,7 +13,7 @@ Class Language extends ConnectionUpdatable{
 
   public function loadList(){
     try {
-      $sql = "SELECT * FROM `language`";
+      $sql = "SELECT * FROM `language` ORDER BY `name` ASC";
       return $this->connection->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e){
       OcunException::printException($e);
