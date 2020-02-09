@@ -37,7 +37,7 @@ class Connection{
     }
   }
 
-  final protected function queryList($sql){
+  final public function queryList($sql){
     try {
       return $this->connection->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }

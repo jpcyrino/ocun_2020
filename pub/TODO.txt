@@ -1,14 +1,12 @@
-Encode
-Inserção Frase por Frase
-Exclusão de Frase
-Atualização de Frase
+- Criação de Abreviações e reconhecimento de significados funcionais
+- Exibição de Frases
+- Página do Morfema
 
-Criação de Abreviações e reconhecimento de significados funcionais
+
 Categorização de Significados (raízes com entidade, evento, propriedade)
 
 
-Exibição de Frases
-Página do Morfema
+
 
 
 Tabelas:

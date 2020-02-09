@@ -1,4 +1,8 @@
 <h1>Inserir Frase</h1>
+<br>
+<button onclick="window.location.href = '?page=SourceMenu'">Voltar</button>
+<br>
+<br>
 <form action="index.php?page=FeedSentence&id=<?=$id?>" method="post">
   <div class="form-field"><p>Dado Original: </p><input id="ioriginal" onkeyup="validateFeed()" type='etext' name='ioriginal' required></div>
   <div class="form-field"><p>Glosa: </p><input id="igloss" type='text' onkeyup="validateFeed()" name='igloss' required></div>

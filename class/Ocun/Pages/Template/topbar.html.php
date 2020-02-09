@@ -29,6 +29,7 @@
       <div class="dropdown-content">
         <a href="index.php?page=SourceMenu"><i class="material-icons">subject</i>  Fontes de Dados</a>
         <?php if($_SESSION['level'] > 5): ?>
+          <a href="index.php?page=SQLQuery"><i class="material-icons">developer_board</i> Consulta SQL</a>
           <a href="index.php?page=FeedBulk"><i class="material-icons">add_to_photos</i>  Inserir dados em Massa</a>
         <?php endif;?>
       </div>

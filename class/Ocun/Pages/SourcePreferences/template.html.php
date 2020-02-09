@@ -1,6 +1,10 @@
 <!-- Variáveis: $source, $sourceName, $languageName, $sourceLicense, $sourceURL, $sourceMorphemeSeparators -->
 
 <h1>Preferências da Fonte</h1>
+<br>
+<button onclick="window.location.href = '?page=SourceMenu'">Voltar</button>
+<br>
+<br>
 <form>
 <p><b>Nome: </b><?=$sourceName?></p>
 <p><b>Língua: </b><?=$languageName?></p>
@@ -58,23 +62,26 @@
   <?php if(count($encode) > 0): ?>
     <p><b>Editar substituições de caractere: <b></p>
     <br>
-    <?php foreach($encode as $row): ?>
-      <form action="index.php?page=SourcePreferences&id=<?=$source?>" method="post">
+    <form action="index.php?page=SourcePreferences&id=<?=$source?>" method="post">
+    <?php foreach($encode as $i => $row): ?>
         <div class="form-field">
           <p>
             Id:
-            <input style="width: 50px;" type="text" name="encid" value="<?=$row['id']?>" disabled>
+            <input style="width: 50px;" type="text" name="encid[]" value="<?=$row['id']?>" readonly>
             Entrada:
-            <input style="width: 70px;" type="text" name="input" value="<?=$row['input']?>" placeholder="entrada">
+            <input style="width: 70px;" type="text" name="einput[]" value="<?=$row['input']?>" placeholder="entrada">
             Saída:
-            <input style="width: 70px;" type="text" name="output" value="<?=$row['output']?>" placeholder="saída">
-            <input type="submit" value="Atualizar">
+            <input style="width: 70px;" type="text" name="eoutput[]" value="<?=$row['output']?>" placeholder="saída">
+            <input type="submit" name="submit" value="Atualizar">
           </p>
         </div>
-      </form>
     <?php endforeach;?>
+    </form>
   <?php endif;?>
 </div>
+
+<h2>Abreviaturas</h2>
+<p><a href="?page=Abbreviations&id=<?=$source?>&language=<?=$languageName?>&source=<?=$sourceName?>">Gerenciar abreviaturas</a></p>
 
 <script>
 function ShowHide(id){

@@ -83,8 +83,11 @@ class SourcePreferences extends Controller{
       $status = self::storeSeparators($_POST['separators']);
     }
 
-    if(isset($_POST['input'], $_POST['output'], $_POST['id'])){
-      $status = self::updateEncode($_POST['id'], $_POST['input'], $_POST['output']);
+    if(isset($_POST['submit']) && $_POST['submit'] == 'Atualizar'){
+      foreach($_POST['encid'] as $i => $data){
+        $status = self::updateEncode($_POST['encid'][$i], $_POST['einput'][$i], $_POST['eoutput'][$i]);
+      }
+
     } elseif(isset($_POST['input'], $_POST['output'])){
       $status = self::storeEncode($_POST['input'], $_POST['output']);
     }
