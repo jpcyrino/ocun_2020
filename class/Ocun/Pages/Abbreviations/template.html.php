@@ -44,18 +44,26 @@
       </div>
   <?php endforeach;?>
   </form>
+  <br>
+  <br>
+
+  <h2>Adicionar abreviatura</h2>
+  <form action="index.php?page=Abbreviations&id=<?=$id?>&language=<?=$language?>&source=<?=$source?>" method="post">
+    <div class="form-field">
+      <p>
+        <input style="width: 120px;" type="text" name="abbreviation" placeholder="abreviatura">
+        <input style="width: 400px;" type="text" name="meaning" placeholder="significado">
+        <input type="submit" name="submit" value="Salvar">
+      </p>
+    </div>
+  </form>
 <?php endif;?>
 
 <br>
 <br>
-
-<h2>Adicionar abreviatura</h2>
-<form action="index.php?page=Abbreviations&id=<?=$id?>&language=<?=$language?>&source=<?=$source?>" method="post">
-  <div class="form-field">
-    <p>
-      <input style="width: 120px;" type="text" name="abbreviation" placeholder="abreviatura">
-      <input style="width: 400px;" type="text" name="meaning" placeholder="significado">
-      <input type="submit" name="submit" value="Salvar">
-    </p>
-  </div>
-</form>
+<h2>Lista de Significados da fonte</h2>
+<br>
+<br>
+<?php foreach($meanings as $m):?>
+  <p><?=$m?></p>
+<?php endforeach;?>

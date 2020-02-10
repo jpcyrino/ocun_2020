@@ -34,6 +34,11 @@ class Abbreviations extends Controller{
     }
   }
 
+  private function meanings(){
+    $abbv = new Abbreviation;
+    return $abbv->parseMeanings($_GET['id']);
+  }
+
   public static function load(){
     if(!isset($_GET['id'], $_GET['language'], $_GET['source'])){
       echo $_GET['id'];
@@ -51,7 +56,8 @@ class Abbreviations extends Controller{
       'abbvs' => $abbvs,
       'source' => $_GET['source'],
       'language' => $_GET['language'],
-      'id' => $_GET['id']
+      'id' => $_GET['id'],
+      'meanings' => self::meanings()
         ]);
   }
 
