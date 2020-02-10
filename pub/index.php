@@ -1,20 +1,16 @@
 <?php
 
- include __DIR__ . '/../conf/autoload.php';
- use Ocun\Database\User\Session;
+include __DIR__ . '/../conf/autoload.php';
+use Ocun\Database\User\Session;
+use Ocun\Database\User\Profile;
 
- session_start();
- Session::checkRegisteredLevel();
- $_SESSION['level'] = 7;
- $_SESSION['id'] = 2;
- $_SESSION['user'] = 'jjj@i.com';
- $_SESSION['name'] = 'João Paulo';
 
-if(isset($_GET['page'])){
-  $class = $_GET['page'];
-  $path = "Ocun\\Pages\\{$class}\\{$class}";
-  $path::load();
+session_start();
+Session::checkRegisteredLevel();
 
-}
+
+$class = isset($_GET['page']) ? $_GET['page'] : "Welcome";
+$path = "Ocun\\Pages\\{$class}\\{$class}";
+$path::load();
 
 ?>

@@ -13,6 +13,7 @@ class Session{
   public static function denyAccess($level){
     if($_SESSION['level'] < $level){
       header("Location: index.php?page=AccessDenied");
+      die();
     }
   }
 
