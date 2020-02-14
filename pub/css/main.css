@@ -138,7 +138,14 @@ article table{
 
 }
 
-.morpheme, .sentence-editable{
+.morpheme{
+  display: inline-block;
+  border-style: solid;
+  border-width: thin;
+  padding: 5px;
+
+  }
+.sentence-editable{
   border-style: solid;
   border-width: thin;
   padding: 5px;

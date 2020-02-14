@@ -81,8 +81,7 @@ class FeedSentence extends Controller {
 
   public static function load(){
     if(!isset($_GET['id'])){
-      echo $_GET['id'];
-      die();
+      Session::denyAccess(0);
     } else {
       if(!self::checkAccess($_GET['id'])){
         Session::denyAccess(5);

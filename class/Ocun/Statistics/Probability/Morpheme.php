@@ -5,8 +5,12 @@ use Ocun\Statistics\iStatistics;
 abstract class Morpheme implements iStatistics{
 
   protected $data;
+  protected $mode;
+  protected $chain;
 
   final public function __construct($morphemeChain, $mode, $wordBoundaries = false){
+    $this->chain = $morphemeChain;
+    $this->mode = $mode;
     if(!$wordBoundaries){
       $this->data = $this->$mode($this->clearWordBoundaries($morphemeChain));
     } else {
@@ -57,9 +61,30 @@ abstract class Morpheme implements iStatistics{
     }
   }
 
-  abstract public function getPlotLyObject($option);
+  abstract public function getPlotLyObject($option, $opacity, $color);
+
   final public function getTable(){
-    return $this->data;
+    usort($this->data, function($a, $b){
+      return ($a['logP'] <= $b['logP'] ? -1 : 1);
+    });
+    $table = array();
+    foreach($this->data as $row){
+      if($this->mode == 'morpheme'){
+        $morpheme = explode(" ", $row[$this->mode]);
+        $table[0][] = $morpheme[0];
+        $table[1][] = $morpheme[1];
+        $table[2][] = $row['count'];
+        $table[3][] = $row['frequency'];
+        $table[4][] = $row['logP'];
+      } else {
+        $table[0][] = $row[$this->mode];
+        $table[1][] = $row['count'];
+        $table[2][] = $row['frequency'];
+        $table[3][] = $row['logP'];
+      }
+    }
+
+    return $table;
   }
 
 

@@ -5,19 +5,39 @@
 
   class MorphemeUnigram extends Morpheme implements iStatistics{
 
-    public function getPlotLyObject($option){
-      return $this->$option();
+    public function getPlotLyObject($option, $opacity = 1, $color = 'blue'){
+      return $this->$option($opacity, $color);
     }
 
-    private function histogramLogP(){
+    private function histogramLogP($opacity, $color){
       $array = array();
       foreach($this->data as $d){
         $array[] = $d['logP'];
       }
-      return json_encode([
+      return [
         'x' => $array,
-        'type' => 'histogram'
-      ]);
+        'type' => 'histogram',
+        'opacity' => $opacity,
+        'marker' => [
+          'color' => $color
+        ]
+      ];
+    }
+
+    private function histogramP($opacity, $color){
+      $array = array();
+      foreach($this->data as $d){
+        $array[] = $d['frequency'];
+      }
+      return [
+        'x' => $array,
+        'type' => 'histogram',
+        'histnorm' => 'probability',
+        'opacity' => $opacity,
+        'marker' => [
+          'color' => $color
+        ]
+      ];
     }
 
   }

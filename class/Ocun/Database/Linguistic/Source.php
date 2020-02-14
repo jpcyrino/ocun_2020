@@ -42,6 +42,11 @@ Class Source extends ConnectionUpdatable{
     }
   }
 
+  public function getInfo($id){
+    $sql = "SELECT *, `source`.`name` AS `title` FROM `source`, `language` WHERE `language`.`id` = `source`.`language` AND `source`.`id` = {$id}";
+    return $this->query($sql);
+  }
+
   public function loadListAccess(){
     if($_SESSION['level'] > 4){
       return $this->loadList();

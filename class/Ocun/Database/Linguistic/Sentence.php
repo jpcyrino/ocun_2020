@@ -9,6 +9,7 @@ class Sentence extends Connection {
     SELECT `sentence`.`id` AS `sentence`,
     `morpheme`.`form` AS `form`,
     `morpheme`.`meaning` AS `meaning`,
+    `morpheme`.`id` AS `id`,
     `sentence`.`translation` AS `translation`
     FROM `sentence`, `chain`, `morpheme`
     WHERE `sentence`.`source` = $source

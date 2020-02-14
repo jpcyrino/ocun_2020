@@ -3,6 +3,7 @@ namespace Ocun\Pages;
 
 abstract class Controller{
 
+
     protected static function loadTemplate($templatePath, $variables = []){
       $template = $templatePath;
       extract($variables);
