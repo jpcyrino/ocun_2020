@@ -85,6 +85,7 @@ function showHist(morpheme, meaning, form, title, xlabel, ylabel){
     xaxis : {title: xlabel},
     yaxis : {title: ylabel}
   }, {responsive: true});
+
 }
 
 function showMorpheme(id,sentence){

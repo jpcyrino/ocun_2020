@@ -8,7 +8,7 @@ abstract class Morpheme implements iStatistics{
   protected $mode;
   protected $chain;
 
-  final public function __construct($morphemeChain, $mode, $wordBoundaries = false){
+  public function __construct($morphemeChain, $mode, $wordBoundaries = false){
     $this->chain = $morphemeChain;
     $this->mode = $mode;
     if(!$wordBoundaries){
@@ -18,7 +18,7 @@ abstract class Morpheme implements iStatistics{
     }
   }
 
-  final protected function morpheme($morphemeChain){
+  protected function morpheme($morphemeChain){
     $array = array();
     foreach($morphemeChain as $morpheme){
       $array[] = ['morpheme' => "{$morpheme['form']} {$morpheme['meaning']}"];
@@ -26,15 +26,15 @@ abstract class Morpheme implements iStatistics{
     return $this->countSingleColumn($array, 'morpheme');
   }
 
-  final protected function form($morphemeChain){
+  protected function form($morphemeChain){
     return $this->countSingleColumn($morphemeChain, 'form');
   }
 
-  final protected function meaning($morphemeChain){
+  protected function meaning($morphemeChain){
     return $this->countSingleColumn($morphemeChain, 'meaning');
   }
 
-  final protected function clearWordBoundaries($morphemeChain){
+  protected function clearWordBoundaries($morphemeChain){
     foreach($morphemeChain as $key => $value){
       if($value['form'] == '_' && $value['meaning'] == '_'){
         unset($morphemeChain[$key]);
@@ -43,7 +43,7 @@ abstract class Morpheme implements iStatistics{
     return array_values($morphemeChain);
   }
 
-  final protected function countSingleColumn($chain, $column){
+  protected function countSingleColumn($chain, $column){
     if(isset($chain[0][$column])){
       $array = array();
       foreach(array_count_values(array_column($chain, $column)) as $key => $count){
@@ -63,7 +63,7 @@ abstract class Morpheme implements iStatistics{
 
   abstract public function getPlotLyObject($option, $opacity, $color);
 
-  final public function getTable(){
+  public function getTable(){
     usort($this->data, function($a, $b){
       return ($a['logP'] <= $b['logP'] ? -1 : 1);
     });

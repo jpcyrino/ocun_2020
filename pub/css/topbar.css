@@ -4,6 +4,7 @@
 .topbar {
   background-color: #333333;
   overflow: hidden;
+  z-index: 1000;
 }
 
 .topbar input[type="submit"]{

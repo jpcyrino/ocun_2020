@@ -31,7 +31,7 @@ Class Ajax {
     echo json_encode([
       'title' => 'Probabilidade dos Morfemas',
       'labelx' => 'P',
-      'labely' => 'Quantidade',
+      'labely' => 'Quantidade/1000',
       'morpheme' => $muMorpheme->getPlotLyObject('histogramP',0.5,'blue'),
       'meaning' => $muMeaning->getPlotLyObject('histogramP', 0.5, 'red'),
       'form' => $muForm->getPlotLyObject('histogramP', 0.5, 'green')
