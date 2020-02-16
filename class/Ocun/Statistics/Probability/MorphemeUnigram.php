@@ -5,6 +5,25 @@
 
   class MorphemeUnigram extends Morpheme implements iStatistics{
 
+    public function __construct($morphemeChain, $mode, $wordBoundaries = false){
+      $this->chain = $morphemeChain;
+      $this->mode = $mode;
+      if(!$wordBoundaries){
+        $this->data = $this->countUnigrams($this->clearWordBoundaries($morphemeChain), $mode);
+      } else {
+        $this->data = $this->countUnigrams($morphemeChain, $mode);
+      }
+    }
+
+    private function clearWordBoundaries($morphemeChain){
+      foreach($morphemeChain as $key => $value){
+        if($value['form'] == '_' && $value['meaning'] == '_'){
+          unset($morphemeChain[$key]);
+        }
+      }
+      return array_values($morphemeChain);
+    }
+
     public function getPlotLyObject($option, $opacity = 1, $color = 'blue'){
       return $this->$option($opacity, $color);
     }
@@ -18,6 +37,7 @@
         'x' => $array,
         'type' => 'histogram',
         'opacity' => $opacity,
+        'xbins' => ['size' => 0.1],
         'marker' => [
           'color' => $color
         ]
@@ -27,7 +47,7 @@
     private function histogramP($opacity, $color){
       $array = array();
       foreach($this->data as $d){
-        $array[] = $d['frequency'];
+        $array[] = $d['P'];
       }
       return [
         'x' => $array,
@@ -38,6 +58,30 @@
           'color' => $color
         ]
       ];
+    }
+
+    public function getTable(){
+      usort($this->data, function($a, $b){
+        return ($a['logP'] <= $b['logP'] ? -1 : 1);
+      });
+      $table = array();
+      foreach($this->data as $row){
+        if($this->mode == 'morpheme'){
+          $morpheme = explode(" ", $row[$this->mode]);
+          $table[0][] = $morpheme[0];
+          $table[1][] = $morpheme[1];
+          $table[2][] = $row['count'];
+          $table[3][] = $row['P'];
+          $table[4][] = $row['logP'];
+        } else {
+          $table[0][] = $row[$this->mode];
+          $table[1][] = $row['count'];
+          $table[2][] = $row['P'];
+          $table[3][] = $row['logP'];
+        }
+      }
+
+      return $table;
     }
 
   }

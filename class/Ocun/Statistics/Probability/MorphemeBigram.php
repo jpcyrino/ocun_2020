@@ -3,12 +3,13 @@
   use Ocun\Statistics\Probability\Morpheme;
   use Ocun\Statistics\iStatistics;
 
-class MorphemeBigram implements iStatistics{
+class MorphemeBigram extends Morpheme implements iStatistics{
 
   protected $chain;
 
   public function __construct($morphemeChain, $mode){
-    $this->$chain = $this->prepareChain($morphemeChain);
+    $this->data = $this->countBigrams($this->prepareChain($morphemeChain), $mode);
+    $this->mode = $mode;
   }
 
   private function prepareChain($chain){
@@ -26,48 +27,71 @@ class MorphemeBigram implements iStatistics{
     return $narray;
   }
 
-  private function countUnigrams($chain, $mode){
+  private function countBigrams($chain, $mode){
+    $unigrams = $this->countUnigrams($chain, $mode);
     $array = array();
-    foreach($chain as $morpheme){
-      $array[] = $mode == 'morpheme' ? "{$morpheme['form']} {$morpheme['meaning']}" : $morpheme[$mode];
+    foreach($chain as $k => $morpheme){
+      if($k < count($chain)-1){
+        $array[] = $mode == 'morpheme' ? "{$chain[$k]['form']} {$chain[$k]['meaning']},{$chain[$k+1]['form']} {$chain[$k+1]['meaning']}": "{$chain[$k][$mode]},{$chain[$k+1][$mode]}";
+      }
     }
     $retarray = array();
+    $s = count($array) + 1;
     foreach(array_count_values($array) as $key => $value){
+      $v = explode(",", $key);
+      $logpv = $unigrams[array_search($v[0], array_column($unigrams, $mode))]['logP'];
       $retarray[] = [
-          $mode => $key,
-          'count' => $value,
-          'P' => $value/count($chain),
-          'logP' => log($value/count($chain), 2) * -1
-        ];
+        $mode.'-A' => $v[0],
+        $mode.'-B' => $v[1],
+        'count' => $value,
+        'P' => $value/$s,
+        'logP' => log($value/$s, 2) * -1,
+        'logP B|A' => (log($value/$s, 2) * -1) - $logpv,
+        'P B|A' => pow(2,-1 * ((log($value/$s, 2) * -1) - $logpv))
+      ];
     }
     return $retarray;
   }
 
-  private function countBigrams($chain, $mode){
-  $unigrams = countUnigrams($chain, $mode);
-  $array = array();
-  foreach($chain as $k => $morpheme){
-    if($k < count($chain)-1){
-      $array[] = $mode == 'morpheme' ? "{$chain[$k]['form']} {$chain[$k]['meaning']},{$chain[$k+1]['form']} {$chain[$k+1]['meaning']}": "{$chain[$k][$mode]},{$chain[$k+1][$mode]}";
+  public function getPlotLyObject($option, $filterChain = NULL, $opacity = 1, $color = 'blue'){
+    return $this->$option($filterChain, $opacity, $color);
+  }
+
+  public function morphemesInSentence($chain, $mode){
+    $retarray = array();
+    $chain = $this->prepareChain($chain);
+    foreach($chain as $key => $morpheme){
+      if($key > 0){
+        $search = $mode == 'morpheme' ? ["{$chain[$key-1]['form']} {$chain[$key-1]['meaning']}","{$morpheme['form']} {$morpheme['meaning']}"] : ["{$chain[$key-1][$mode]}","{$morpheme[$mode]}"];
+        $retarray[] = array_values(array_filter($this->data, function($m) use ($search, $mode){
+          return ($m[$mode.'-A'] == $search[0] && $m[$mode.'-B'] == $search[1]);
+        }));
+      }
+    }
+    return $retarray;
+  }
+
+  private function sentenceBar($filterChain, $opacity, $color){
+    if(isset($filterChain) && count($filterChain) > 1){
+      $x = array();
+      foreach($this->morphemesInSentence($filterChain, $this->mode) as $key => $e){
+        $x[] = "{$key} "; //- {$e[0][$this->mode.'-B']}
+      }
+      //$x = array_map(function($e){return "A:({$e[0][$this->mode.'-A']})B:({$e[0][$this->mode.'-B']})";}, $this->morphemesInSentence($filterChain, $this->mode));
+      $y = array_map(function($e){return $e[0]['logP B|A'];}, $this->morphemesInSentence($filterChain, $this->mode));
+      return [
+        'x' => $x,
+        'y' => $y,
+        'type' => 'bar',
+      ];
     }
   }
-  $retarray = array();
-  $s = count($array) + 1;
-  foreach(array_count_values($array) as $key => $value){
-    $v = explode(",", $key);
-    $logpv = $unigrams[array_search($v[0], array_column($unigrams, $mode))]['logP'];
-    $retarray[] = [
-      $mode.'-A' => $v[0],
-      $mode.'-B' => $v[1],
-      'count' => $value,
-      'P' => $value/$s,
-      'logP' => log($value/$s, 2) * -1,
-      'logP B|A' => (log($value/$s, 2) * -1) - $logpv,
-      'P B|A' => pow(2,-1 * ((log($value/$s, 2) * -1) - $logpv))
-    ];
+
+  public function getTable(){
+    return $this->data;
   }
-  return $retarray;
-}
+
+
 
 }
 ?>

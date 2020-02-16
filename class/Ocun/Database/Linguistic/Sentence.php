@@ -20,6 +20,23 @@ SQL;
     return $this->queryList($sql);
   }
 
+  public function morphemeListbySentence($source, $sentId){
+    $sql = <<<SQL
+    SELECT `sentence`.`id` AS `sentence`,
+    `morpheme`.`form` AS `form`,
+    `morpheme`.`meaning` AS `meaning`,
+    `morpheme`.`id` AS `id`,
+    `sentence`.`translation` AS `translation`
+    FROM `sentence`, `chain`, `morpheme`
+    WHERE `sentence`.`source` = $source
+    AND `sentence`.`id` = $sentId
+    AND `chain`.`sentence` = `sentence`.`id`
+    AND `chain`.`morpheme` = `morpheme`. `id`
+    ORDER BY `sentence`.`id` ASC
+SQL;
+    return $this->queryList($sql);
+  }
+
   public function sentenceList($source){
     $list = array();
     $sentence = array();

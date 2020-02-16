@@ -5,8 +5,24 @@ use Ocun\Database\User\Session;
 use Ocun\Database\Linguistic\Sentence;
 use Ocun\Database\Linguistic\Source;
 use Ocun\Statistics\Probability\MorphemeUnigram;
+use Ocun\Statistics\Probability\MorphemeBigram;
 
 Class Ajax {
+
+
+// Unigram methods
+
+    public static function ajax_tableMorpheme(){
+      self::ajaxTable("Frequência dos Morfemas", 'morpheme', 'Morfema');
+    }
+
+    public static function ajax_tableMeaning(){
+      self::ajaxTable("Frequência dos Significados", 'meaning', 'Significado');
+    }
+
+    public static function ajax_tableForm(){
+      self::ajaxTable("Frequência das Formas", 'form', 'Forma');
+    }
 
   public static function ajax_hLogP(){
     $ml = new Sentence;
@@ -38,19 +54,6 @@ Class Ajax {
     ]);
   }
 
-  public static function ajax_tableMorpheme(){
-    self::ajaxTable("Frequência dos Morfemas", 'morpheme', 'Morfema');
-  }
-
-  public static function ajax_tableMeaning(){
-    self::ajaxTable("Frequência dos Significados", 'meaning', 'Significado');
-  }
-
-  public static function ajax_tableForm(){
-    self::ajaxTable("Frequência das Formas", 'form', 'Forma');
-  }
-
-
   private static function ajaxTable($title, $object, $objectTitle){
     $ml = new Sentence;
     $muMorpheme = new MorphemeUnigram($ml->morphemeList($_GET['id']), $object);
@@ -70,8 +73,24 @@ Class Ajax {
     ]);
   }
 
-
-
+//Bigram methods
+public static function ajax_sentenceBar(){
+  $ml = new Sentence;
+  $mbMorpheme = new MorphemeBigram($ml->morphemeList($_GET['id']), 'morpheme');
+  $mbMeaning = new MorphemeBigram($ml->morphemeList($_GET['id']), 'meaning');
+  $mbForm = new MorphemeBigram($ml->morphemeList($_GET['id']), 'form');
+  $chain = $ml->morphemeListbySentence($_GET['id'], $_GET['st']);
+  echo json_encode([
+    'window' => 'window-'.$_GET['st'],
+    'data' => [
+        'title' => 'Complexidade dos Bígramos na Frase',
+        'labelx' => 'Morfema',
+        'labely' => '-logP',
+        'morpheme' => $mbMorpheme->getPlotLyObject('sentenceBar', $chain),
+        'meaning' => $mbMeaning->getPlotLyObject('sentenceBar', $chain),
+        'form' => $mbForm->getPlotLyObject('sentenceBar', $chain)
+    ]]);
+}
 
 }
 

@@ -25,7 +25,7 @@
 <br>
 <div style="height: 80vh; overflow: scroll;">
 <?php foreach($sentences as $sent): ?>
-  <div style="border-style: solid; border-width: thin; padding: 5px;">
+  <div style="border-style: none; border-width: thin; padding: 5px;">
   <p>
   <?php foreach($sent as $m): ?>
     <?php if($m['form'] == '_' && $m['meaning'] == "_"): ?>
@@ -36,11 +36,13 @@
   <?php endforeach;?>
   <br>
   <?php if(isset($sent[0])): ?>
-    <?="\"". $sent[0]['translation'] . "\""?>
+    <p onclick="sentenceBarRequest(<?=$sent[0]['sentence']?>,'?page=SourceInfo&id=<?=$_GET['id']?>&ajax=sentenceBar&st=<?=$sent[0]['sentence']?>')"><?="\"". $sent[0]['translation'] . "\""?></p>
+    <br>
+  <!--  <button onclick="Ajax('?page=SourceInfo&id=<?=$_GET['id']?>&ajax=sentenceBar&st=<?=$sent[0]['sentence']?>', sentenceBar)">Complexidade dos Bígramos</button> -->
   <?php endif;?>
   </p>
   </div>
-  <div id="window-<?=$sent[0]['sentence']?>" style="display: none; border-style: solid; border-width: thin; padding: 5px;"></div>
+  <div id="window-<?=$sent[0]['sentence']?>" style="display: none; border-style: none; border-width: thin; padding: 5px;"></div>
 <br>
 <?php endforeach;?>
 </div>
@@ -52,7 +54,7 @@
 
 <script>
 function show(resp){
-  //console.log(resp);
+  console.log(resp);
   d = JSON.parse(resp);
   document.getElementById("plot").innerHTML = "";
   if(d.morpheme.type == "histogram"){
@@ -60,6 +62,25 @@ function show(resp){
   } else if(d.morpheme.type == "table"){
     showTable(d.morpheme, d.title);
   }
+}
+
+function sentenceBarRequest(sent, ajax){
+  Ajax(ajax, sentenceBar);
+  document.getElementById("window-"+sent).innerHTML = "<button onclick='document.getElementById(d.window).style.display = \"none\"'>Fechar</button><br><div id='plot-window-"+sent+"'>Aguarde, processando dados... (pode levar alguns instantes)</div>";
+  document.getElementById("window-"+sent).style.display = "block";
+}
+
+function sentenceBar(resp){
+  d = JSON.parse(resp);
+  w = 'plot-'+d.window;
+  document.getElementById(w).innerHTML = "";
+  d.data.morpheme.name = "Morfema";
+  d.data.meaning.name = "Significado";
+  d.data.form.name = "Forma";
+  console.log(d);
+  Plotly.newPlot(w,[d.data.morpheme, d.data.meaning, d.data.form], {title: d.data.title, xaxis: {title: d.data.labelx}, yaxis: {title: d.data.labely}}, {responsive: true});
+
+
 }
 
 function showTable(data, title){
