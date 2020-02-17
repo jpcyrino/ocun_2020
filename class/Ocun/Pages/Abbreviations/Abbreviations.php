@@ -39,7 +39,7 @@ class Abbreviations extends Controller{
       $abbv = new Abbreviation;
       foreach($_POST['sig'] as $i => $row){
         if($_POST['classif'][$i] != " "){
-          $abbv->storeMeaningClassification($_GET['id'], $_POST['sig'][$i], $_POST['classif'][$i]);
+          $abbv->storeMeaningClassification($_POST['sig'][$i], $_POST['classif'][$i]);
         }
       }
     }
@@ -55,7 +55,7 @@ class Abbreviations extends Controller{
       'p' => 'Propriedade'
     ];
     foreach($abbv->parseMeanings($_GET['id']) as $m){
-      $st = $abbv->getMeaningClassification($_GET['id'], $m);
+      $st = $abbv->getMeaningClassification($m);
       $meanings[] = $st ? [$m, $class[$st['classification']], $st['classification']] : [$m, " ", " "];
     }
     return $meanings;
