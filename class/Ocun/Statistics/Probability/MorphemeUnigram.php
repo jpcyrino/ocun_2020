@@ -24,11 +24,11 @@
       return array_values($morphemeChain);
     }
 
-    public function getPlotLyObject($option, $opacity = 1, $color = 'blue'){
-      return $this->$option($opacity, $color);
+    public function getPlotLyObject($option, $search = null, $opacity = 1, $color = 'blue'){
+      return $this->$option($opacity, $color, $search);
     }
 
-    private function histogramLogP($opacity, $color){
+    private function histogramLogP($opacity, $color, $search){
       $array = array();
       foreach($this->data as $d){
         $array[] = $d['logP'];
@@ -44,7 +44,7 @@
       ];
     }
 
-    private function histogramP($opacity, $color){
+    private function histogramP($opacity, $color, $search){
       $array = array();
       foreach($this->data as $d){
         $array[] = $d['P'];
@@ -59,6 +59,34 @@
         ]
       ];
     }
+
+    private function morphemesInSentence($chain, $mode){
+      $chain = $this->clearWordBoundaries($chain);
+      $retarray = array();
+      foreach($chain as $key => $morpheme){
+          $search = $mode == 'morpheme' ? "{$morpheme['form']} {$morpheme['meaning']}" : "{$morpheme[$mode]}";
+          $retarray[] = array_values(array_filter($this->data, function($m) use ($search, $mode){
+            return $m[$mode] == $search;
+          }))[0];
+      }
+
+      return $retarray;
+    }
+
+    private function sentenceLogP($opacity, $color, $search){
+      $arr = $this->morphemesInSentence($search, $this->mode);
+      $x = array();
+      foreach($arr as $key => $el){
+        $x[] = "{$key}-{$el[$this->mode]}";
+      }
+      $y = array_map(function($el){return $el['logP'];}, $arr);
+      return [
+        'x' => $x,
+        'y' => $y,
+        'type' => 'bar'
+      ];
+    }
+
 
     public function getTable(){
       usort($this->data, function($a, $b){

@@ -40,6 +40,7 @@ class MorphemeBigram extends Morpheme implements iStatistics{
     foreach(array_count_values($array) as $key => $value){
       $v = explode(",", $key);
       $logpv = $unigrams[array_search($v[0], array_column($unigrams, $mode))]['logP'];
+      $logpw = $unigrams[array_search($v[1], array_column($unigrams, $mode))]['logP'];
       $retarray[] = [
         $mode.'-A' => $v[0],
         $mode.'-B' => $v[1],
@@ -47,7 +48,9 @@ class MorphemeBigram extends Morpheme implements iStatistics{
         'P' => $value/$s,
         'logP' => log($value/$s, 2) * -1,
         'logP B|A' => (log($value/$s, 2) * -1) - $logpv,
-        'P B|A' => pow(2,-1 * ((log($value/$s, 2) * -1) - $logpv))
+        'logP A|B' => (log($value/$s, 2) * -1) - $logpw,
+        'P B|A' => pow(2,-1 * ((log($value/$s, 2) * -1) - $logpv)),
+        'P A|B' => pow(2,-1 * ((log($value/$s, 2) * -1) - $logpw))
       ];
     }
     return $retarray;
@@ -65,7 +68,7 @@ class MorphemeBigram extends Morpheme implements iStatistics{
         $search = $mode == 'morpheme' ? ["{$chain[$key-1]['form']} {$chain[$key-1]['meaning']}","{$morpheme['form']} {$morpheme['meaning']}"] : ["{$chain[$key-1][$mode]}","{$morpheme[$mode]}"];
         $retarray[] = array_values(array_filter($this->data, function($m) use ($search, $mode){
           return ($m[$mode.'-A'] == $search[0] && $m[$mode.'-B'] == $search[1]);
-        }));
+        }))[0];
       }
     }
     return $retarray;
@@ -75,14 +78,30 @@ class MorphemeBigram extends Morpheme implements iStatistics{
     if(isset($filterChain) && count($filterChain) > 1){
       $x = array();
       foreach($this->morphemesInSentence($filterChain, $this->mode) as $key => $e){
-        $x[] = "{$key} "; //- {$e[0][$this->mode.'-B']}
+        $x[] = "{$key}-{$e[$this->mode.'-B']}|{$e[$this->mode.'-A']} "; //- {$e[0][$this->mode.'-B']}
       }
       //$x = array_map(function($e){return "A:({$e[0][$this->mode.'-A']})B:({$e[0][$this->mode.'-B']})";}, $this->morphemesInSentence($filterChain, $this->mode));
-      $y = array_map(function($e){return $e[0]['logP B|A'];}, $this->morphemesInSentence($filterChain, $this->mode));
+      $y = array_map(function($e){return $e['logP B|A'];}, $this->morphemesInSentence($filterChain, $this->mode));
       return [
         'x' => $x,
         'y' => $y,
         'type' => 'bar',
+      ];
+    }
+  }
+
+  private function inverseSentenceBar($filterChain, $opacity, $color){
+    if(isset($filterChain) && count($filterChain) > 1){
+      $x = array();
+      foreach($this->morphemesInSentence($filterChain, $this->mode) as $key => $e){
+        $x[] = "{$key}-{$e[$this->mode.'-A']}|{$e[$this->mode.'-B']} "; //- {$e[0][$this->mode.'-B']}
+      }
+      //$x = array_map(function($e){return "A:({$e[0][$this->mode.'-A']})B:({$e[0][$this->mode.'-B']})";}, $this->morphemesInSentence($filterChain, $this->mode));
+      $y = array_map(function($e){return $e['logP A|B'];}, $this->morphemesInSentence($filterChain, $this->mode));
+      return [
+        'x' => $x,
+        'y' => $y,
+        'type' => 'bar'
       ];
     }
   }

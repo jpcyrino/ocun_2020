@@ -33,9 +33,9 @@ Class Ajax {
       'title' => 'Complexidade dos Morfemas',
       'labelx' => '-logP',
       'labely' => 'Quantidade',
-      'morpheme' => $muMorpheme->getPlotLyObject('histogramLogP',0.5,'blue'),
-      'meaning' => $muMeaning->getPlotLyObject('histogramLogP', 0.5, 'red'),
-      'form' => $muForm->getPlotLyObject('histogramLogP', 0.5, 'green')
+      'morpheme' => $muMorpheme->getPlotLyObject('histogramLogP', null, 0.5,'blue'),
+      'meaning' => $muMeaning->getPlotLyObject('histogramLogP', null, 0.5, 'red'),
+      'form' => $muForm->getPlotLyObject('histogramLogP', null, 0.5, 'green')
     ]);
   }
 
@@ -48,9 +48,9 @@ Class Ajax {
       'title' => 'Probabilidade dos Morfemas',
       'labelx' => 'P',
       'labely' => 'Quantidade/1000',
-      'morpheme' => $muMorpheme->getPlotLyObject('histogramP',0.5,'blue'),
-      'meaning' => $muMeaning->getPlotLyObject('histogramP', 0.5, 'red'),
-      'form' => $muForm->getPlotLyObject('histogramP', 0.5, 'green')
+      'morpheme' => $muMorpheme->getPlotLyObject('histogramP', null, 0.5,'blue'),
+      'meaning' => $muMeaning->getPlotLyObject('histogramP', null,  0.5, 'red'),
+      'form' => $muForm->getPlotLyObject('histogramP',null, 0.5, 'green')
     ]);
   }
 
@@ -73,6 +73,24 @@ Class Ajax {
     ]);
   }
 
+  public static function ajax_sentenceLogP(){
+    $ml = new Sentence;
+    $muMorpheme = new MorphemeUnigram($ml->morphemeList($_GET['id']), 'morpheme');
+    $muMeaning = new MorphemeUnigram($ml->morphemeList($_GET['id']), 'meaning');
+    $muForm = new MorphemeUnigram($ml->morphemeList($_GET['id']), 'form');
+    $chain = $ml->morphemeListbySentence($_GET['id'], $_GET['st']);
+    echo json_encode([
+      'window' => 'window-'.$_GET['st'],
+      'data' => [
+          'title' => 'Complexidade -logP(n)',
+          'labelx' => 'n',
+          'labely' => '-logP',
+          'morpheme' => $muMorpheme->getPlotLyObject('sentenceLogP', $chain),
+          'meaning' => $muMeaning->getPlotLyObject('sentenceLogP', $chain),
+          'form' => $muForm->getPlotLyObject('sentenceLogP', $chain)
+      ]]);
+  }
+
 //Bigram methods
 public static function ajax_sentenceBar(){
   $ml = new Sentence;
@@ -83,12 +101,123 @@ public static function ajax_sentenceBar(){
   echo json_encode([
     'window' => 'window-'.$_GET['st'],
     'data' => [
-        'title' => 'Complexidade dos Bígramos na Frase',
-        'labelx' => 'Morfema',
+        'title' => 'Análise -logP(n|n-1)',
+        'labelx' => 'n|n-1',
         'labely' => '-logP',
         'morpheme' => $mbMorpheme->getPlotLyObject('sentenceBar', $chain),
         'meaning' => $mbMeaning->getPlotLyObject('sentenceBar', $chain),
         'form' => $mbForm->getPlotLyObject('sentenceBar', $chain)
+    ]]);
+}
+
+public static function ajax_inverseSentenceBar(){
+  $ml = new Sentence;
+  $mbMorpheme = new MorphemeBigram($ml->morphemeList($_GET['id']), 'morpheme');
+  $mbMeaning = new MorphemeBigram($ml->morphemeList($_GET['id']), 'meaning');
+  $mbForm = new MorphemeBigram($ml->morphemeList($_GET['id']), 'form');
+  $chain = $ml->morphemeListbySentence($_GET['id'], $_GET['st']);
+  echo json_encode([
+    'window' => 'window-'.$_GET['st'],
+    'data' => [
+        'title' => 'Análise -logP(n-1|n)',
+        'labelx' => 'n-1|n',
+        'labely' => '-logP',
+        'morpheme' => $mbMorpheme->getPlotLyObject('inverseSentenceBar', $chain),
+        'meaning' => $mbMeaning->getPlotLyObject('inverseSentenceBar', $chain),
+        'form' => $mbForm->getPlotLyObject('inverseSentenceBar', $chain)
+    ]]);
+}
+
+public static function ajax_mutualMeaning(){
+  $ml = new Sentence;
+  $mb = new MorphemeBigram($ml->morphemeList($_GET['id']), 'meaning');
+  $chain = $ml->morphemeListbySentence($_GET['id'], $_GET['st']);
+  echo json_encode([
+    'window' => 'window-'.$_GET['st'],
+    'data' => [
+        'title' => 'Análise de Complexidade Mútua por Significado',
+        'labelx' => 'n-1|n vs n|n-1',
+        'labely' => '-logP',
+        'plotBA' => $mb->getPlotLyObject('SentenceBar', $chain),
+        'plotAB' => $mb->getPlotLyObject('inverseSentenceBar', $chain),
+    ]]);
+}
+
+public static function ajax_mutualForm(){
+  $ml = new Sentence;
+  $mb = new MorphemeBigram($ml->morphemeList($_GET['id']), 'form');
+  $chain = $ml->morphemeListbySentence($_GET['id'], $_GET['st']);
+  echo json_encode([
+    'window' => 'window-'.$_GET['st'],
+    'data' => [
+        'title' => 'Análise de Complexidade Mútua por Forma',
+        'labelx' => 'n-1|n vs n|n-1',
+        'labely' => '-logP',
+        'plotBA' => $mb->getPlotLyObject('SentenceBar', $chain),
+        'plotAB' => $mb->getPlotLyObject('inverseSentenceBar', $chain),
+    ]]);
+}
+
+public static function ajax_mutualMorpheme(){
+  $ml = new Sentence;
+  $mb = new MorphemeBigram($ml->morphemeList($_GET['id']), 'morpheme');
+  $chain = $ml->morphemeListbySentence($_GET['id'], $_GET['st']);
+  echo json_encode([
+    'window' => 'window-'.$_GET['st'],
+    'data' => [
+        'title' => 'Análise de Complexidade Mútua por Morfema',
+        'labelx' => 'n-1|n vs n|n-1',
+        'labely' => '-logP',
+        'plotBA' => $mb->getPlotLyObject('SentenceBar', $chain),
+        'plotAB' => $mb->getPlotLyObject('inverseSentenceBar', $chain),
+    ]]);
+}
+
+public static function ajax_nBAMeaning(){
+  $ml = new Sentence;
+  $mu = new MorphemeUnigram($ml->morphemeList($_GET['id']), 'meaning');
+  $mb = new MorphemeBigram($ml->morphemeList($_GET['id']), 'meaning');
+  $chain = $ml->morphemeListbySentence($_GET['id'], $_GET['st']);
+  echo json_encode([
+    'window' => 'window-'.$_GET['st'],
+    'data' => [
+        'title' => 'Significado logP(n) vs logP(n|n-1)',
+        'labelx' => 'n vs n|n-1',
+        'labely' => '-logP',
+        'n' => $mu->getPlotLyObject('sentenceLogP', $chain),
+        'nGivenNMinusOne' => $mb->getPlotLyObject('SentenceBar', $chain),
+    ]]);
+}
+
+public static function ajax_nBAForm(){
+  $ml = new Sentence;
+  $mu = new MorphemeUnigram($ml->morphemeList($_GET['id']), 'form');
+  $mb = new MorphemeBigram($ml->morphemeList($_GET['id']), 'form');
+  $chain = $ml->morphemeListbySentence($_GET['id'], $_GET['st']);
+  echo json_encode([
+    'window' => 'window-'.$_GET['st'],
+    'data' => [
+        'title' => 'Forma logP(n) vs logP(n|n-1)',
+        'labelx' => 'n vs n|n-1',
+        'labely' => '-logP',
+        'n' => $mu->getPlotLyObject('sentenceLogP', $chain),
+        'nGivenNMinusOne' => $mb->getPlotLyObject('SentenceBar', $chain),
+    ]]);
+}
+
+public static function ajax_nBAMorpheme(){
+  $ml = new Sentence;
+  $mu = new MorphemeUnigram($ml->morphemeList($_GET['id']), 'morpheme');
+  $mb = new MorphemeBigram($ml->morphemeList($_GET['id']), 'morpheme');
+  $chain = $ml->morphemeListbySentence($_GET['id'], $_GET['st']);
+  echo json_encode([
+    'window' => 'window-'.$_GET['st'],
+    'data' => [
+        'title' => 'Morfema logP(n) vs logP(n|n-1)',
+        'labelx' => 'n vs n|n-1',
+        'labely' => '-logP',
+        'n' => $mu->getPlotLyObject('sentenceLogP', $chain),
+        'nGivenNMinusOne' => $mb->getPlotLyObject('SentenceBar', $chain),
     ]]);
 }
 
