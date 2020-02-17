@@ -25,6 +25,7 @@
         <button class="dropbtn">Dados</button>
         <div class="dropdown-content">
           <a href="index.php?page=SourceMenu"><i class="material-icons">subject</i>  Fontes de Dados</a>
+          <a href="index.php?page=LanguageDetails"><i class="material-icons">font_download</i> Informações de Língua</a>
           <?php if($_SESSION['level'] > 5): ?>
             <a href="index.php?page=SQLQuery"><i class="material-icons">developer_board</i> Consulta SQL</a>
             <a href="index.php?page=FeedBulk"><i class="material-icons">add_to_photos</i>  Inserir dados em Massa</a>

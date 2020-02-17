@@ -34,9 +34,31 @@ class Abbreviations extends Controller{
     }
   }
 
+  private function storeMeaningClassification(){
+    if(isset($_POST['sig'], $_POST['classif']) && $_POST['submit'] == 'Salvar'){
+      $abbv = new Abbreviation;
+      foreach($_POST['sig'] as $i => $row){
+        if($_POST['classif'][$i] != " "){
+          $abbv->storeMeaningClassification($_GET['id'], $_POST['sig'][$i], $_POST['classif'][$i]);
+        }
+      }
+    }
+  }
+
   private function meanings(){
     $abbv = new Abbreviation;
-    return $abbv->parseMeanings($_GET['id']);
+    $meanings = array();
+    $class = [
+      'f' => 'Funcional',
+      'e' => 'Evento',
+      't' => 'Entidade',
+      'p' => 'Propriedade'
+    ];
+    foreach($abbv->parseMeanings($_GET['id']) as $m){
+      $st = $abbv->getMeaningClassification($_GET['id'], $m);
+      $meanings[] = $st ? [$m, $class[$st['classification']], $st['classification']] : [$m, " ", " "];
+    }
+    return $meanings;
   }
 
   public static function load(){
@@ -50,6 +72,7 @@ class Abbreviations extends Controller{
     }
     self::storeAbbreviation();
     self::updateAbbreviation();
+    self::storeMeaningClassification();
     $abbv = new Abbreviation;
     $abbvs = $abbv->listAbbreviations($_GET['id']);
     echo self::loadTemplate("/../Abbreviations/template.html.php", [

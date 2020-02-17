@@ -7,12 +7,13 @@
   <h2>Fonte:</h2>
   <p><b>Nome: </b><?=$source?></p>
   <p><b>Língua: </b><?=$language?></p>
+  <p><b><a href="#abrev">Gerenciar Abreviaturas</a>&nbsp;<a href="#classif">Classificar Significados</a></b></p>
 </form>
 
 <br>
 <br>
 
-<h2>Adicionar abreviatura</h2>
+<h2 id="abrev">Adicionar abreviatura</h2>
 <form action="index.php?page=Abbreviations&id=<?=$id?>&language=<?=$language?>&source=<?=$source?>" method="post">
   <div class="form-field">
     <p>
@@ -61,9 +62,36 @@
 
 <br>
 <br>
-<h2>Lista de Significados da fonte</h2>
+<h2 id="classif">Classificar Significados da fonte</h2>
 <br>
+<p> Classificar em funcional, evento, propriedade e entidade.</p>
 <br>
-<?php foreach($meanings as $m):?>
-  <p><?=$m?></p>
+<h3>Significados a partir do número:<br>
+<?php for($i = 0; $i<count($meanings); $i+=20):?>
+  <a href="index.php?page=Abbreviations&id=<?=$id?>&language=<?=$language?>&source=<?=$source?>&tier=<?=$i?>#classif"><?=$i?></a>&nbsp;
+<?php endfor;?>
+</h3>
+<br>
+<form action="index.php?page=Abbreviations&id=<?=$id?>&language=<?=$language?>&source=<?=$source?>" method="post">
+<?php foreach($meanings as $k => $m):?>
+  <?php $tier = isset($_GET['tier']) ? $_GET['tier'] : 0;?>
+  <?php if($k >= $tier && $k < $tier+20): ?>
+  <div class="form-field">
+    <p>
+      <b>#<?=$k?></b>&nbsp;
+      Significado:
+      <input style="width: 100px;" type="text" name="sig[]" value="<?=$m[0]?>" readonly>
+      Classificação:
+      <select style="width: 400px;"name="classif[]">
+        <option value="<?=$m[2]?>" selected><?=$m[1]?></option>
+        <option value="f">Funcional</option>
+        <option value="e">Evento</option>
+        <option value="p">Propriedade</option>
+        <option value="t">Entidade</option>
+      </select>
+      <input type="submit" name="submit" value="Salvar">
+    </p>
+  </div>
+  <?php endif;?>
 <?php endforeach;?>
+</form>

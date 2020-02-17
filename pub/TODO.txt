@@ -1,9 +1,21 @@
-- Criação de Abreviações e reconhecimento de significados funcionais
-- Exibição de Frases
+Ocun: Roadmap
+
+0.3
+- Editar dados
+- Frases e estatísticas (Frequência dos Morfemas, Histograma de P -LogP na fonte, gráficos de complexidade de primeira e segunda ordem na frase)
+- Classificar Raizes (Categorização de Significados (raízes com entidade, evento, propriedade))
 - Página do Morfema
+- Página inicial
 
 
-Categorização de Significados (raízes com entidade, evento, propriedade)
+0.3.1
+- Alterar senha
+- Recuperar senha
+- Entropia e informação mútua
+
+0.4
+- Parser
+
 
 
 

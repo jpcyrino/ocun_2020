@@ -14,6 +14,16 @@ class Abbreviation extends ConnectionUpdatable{
     return (array_values(array_unique(array_filter(preg_split('/(\.|\||\{|\}|\<|\>|\(|\)|\:|\+|\›|\‹)/', $meaningString)))));
   }
 
+  public function storeMeaningClassification($source, $meaning, $classification){
+    $sql = "INSERT INTO `meaning_classification` SET `source` = :source, `meaning` = :meaning, `classification` = :classification ON DUPLICATE KEY UPDATE `classification` = :classification";
+    $this->execute($sql, [$source, $meaning, $classification, $classification]);
+  }
+
+  public function getMeaningClassification($source, $meaning){
+    $sql = "SELECT `classification` FROM `meaning_classification`WHERE `source` = {$source} AND `meaning` = '{$meaning}'";
+    return $this->query($sql);
+  }
+
   public function listAbbreviations($source){
     return $this->queryList("SELECT * FROM `abbreviation` WHERE `source` = {$source} ORDER BY `abbreviation` ASC");
   }
