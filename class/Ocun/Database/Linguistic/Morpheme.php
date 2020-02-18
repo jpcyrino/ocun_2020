@@ -21,8 +21,8 @@ public function queryMeaning($source, $meaning){
 }
 
 public function updateMorpheme($source, $form, $meaning, $new_form, $new_meaning){
-  $sql = "UPDATE `morpheme` SET `form` = :form, `meaning` = :meaning WHERE WHERE `source` = {$source} AND `form` = '{$form}' AND `meaning` = '{$meaning}'";
-
+  $sql = "UPDATE `morpheme` SET `form` = :form, `meaning` = :meaning WHERE `source` = {$source} AND `form` = '{$form}' AND `meaning` = '{$meaning}'";
+  $this->execute($sql, [$new_form, $new_meaning]);
 }
 
 

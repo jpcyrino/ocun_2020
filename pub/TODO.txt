@@ -15,12 +15,3 @@ Ocun: Roadmap
 
 0.4
 - Parser
-
-
-
-
-
-
-Tabelas:
-Morfema: ID FONTE FORMA SIGNIFICADO
-Abreviações: ID FONTE SIGNIFICADO EXPLICAÇÃO
