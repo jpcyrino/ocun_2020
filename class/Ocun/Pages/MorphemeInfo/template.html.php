@@ -69,20 +69,20 @@
   <br>
   <br>
 <?php endif;?>
-<h2>Significados prefixais</h2>
+<h2>Morfemas antecedentes</h2>
 <br>
 <p>
 <?php foreach($bigram['prefix'] as $p): ?>
-  <div class="morpheme"><?=$p['meaning-A']?><br><?=$p['count']?><br><?=$p['logP A|B']?></div>
+  <div class="morpheme"><?=$p['morpheme-A']?><br><?=$p['count']?><br><?=$p['logP A|B']?></div>
 <?php endforeach; ?>
 </p>
 <br>
 <br>
-<h2>Significados sufixais</h2>
+<h2>Morfemas sucessores</h2>
 <br>
 <p>
 <?php foreach($bigram['suffix'] as $s): ?>
-  <div class="morpheme"><?=$s['meaning-B']?><br><?=$s['count']?><br><?=$s['logP B|A']?></div>
+  <div class="morpheme"><?=$s['morpheme-B']?><br><?=$s['count']?><br><?=$s['logP B|A']?></div>
 <?php endforeach; ?>
 <br>
 <br>

@@ -66,11 +66,11 @@ class MorphemeInfo extends Controller{
 
   private static function getMeaningBigrams($morphemeData){
     $ml = new Sentence;
-    $mbMeaning = new MorphemeBigram($ml->morphemeList($morphemeData['morpheme']['source']), 'meaning');
+    $mbMeaning = new MorphemeBigram($ml->morphemeList($morphemeData['morpheme']['source']), 'morpheme');
     $retarray = array();
     foreach($mbMeaning->getTable() as $t){
-      if($t['meaning-B'] == $morphemeData['morpheme']['meaning']) $retarray['prefix'][] = $t;
-      if($t['meaning-A'] == $morphemeData['morpheme']['meaning']) $retarray['suffix'][] = $t;
+      if($t['morpheme-B'] == "{$morphemeData['morpheme']['form']} {$morphemeData['morpheme']['meaning']}") $retarray['prefix'][] = $t;
+      if($t['morpheme-A'] == "{$morphemeData['morpheme']['form']} {$morphemeData['morpheme']['meaning']}") $retarray['suffix'][] = $t;
     }
     return $retarray;
   }
