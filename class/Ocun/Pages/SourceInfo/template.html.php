@@ -31,7 +31,7 @@
     <?php if($m['form'] == '_' && $m['meaning'] == "_"): ?>
       <div style="display: inline-block;">&nbsp;</div>
     <?php else:?>
-      <div onclick="wi(showMorpheme, '<?=$m['id']?>', '<?=$m['sentence']?>')" class="morpheme" ><?=$m['form']?><br><?=$m['meaning']?></div>
+      <div onclick="window.open('?page=MorphemeInfo&id=<?=$m['id']?>', '_blank')" class="morpheme" ><?=$m['form']?><br><?=$m['meaning']?></div>
     <?php endif;?>
   <?php endforeach;?>
   <br>

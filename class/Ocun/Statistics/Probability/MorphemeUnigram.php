@@ -87,6 +87,9 @@
       ];
     }
 
+    public function getData(){
+      return $this->data;
+    }
 
     public function getTable(){
       usort($this->data, function($a, $b){

@@ -16,8 +16,8 @@ protected static function checkAccess($sourceID){
   } else {
     foreach($src->loadListAccess() as $row){
       if($row['id'] == $sourceID){
-        self::$sourceData = $row;
-        return $src->getInfo;
+        //self::$sourceData = $row;
+        return $src->getInfo($sourceID);
       }
     }
     return false;

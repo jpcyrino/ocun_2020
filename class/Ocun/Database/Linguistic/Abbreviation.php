@@ -14,6 +14,16 @@ class Abbreviation extends ConnectionUpdatable{
     return (array_values(array_unique(array_filter(preg_split('/(\.|\||\{|\}|\<|\>|\(|\)|\:|\+|\›|\‹)/', $meaningString)))));
   }
 
+  public function parseMeaningFromMorphemeId($id){
+    $meaningArray = array();
+    foreach($this->queryList("SELECT DISTINCT `meaning` FROM `morpheme` WHERE `id` = {$id}") as $row){
+      $meaningArray[] = $row['meaning'];
+    }
+    $meaningString = html_entity_decode(implode(".", array_unique(array_map('trim',$meaningArray))), ENT_QUOTES, 'UTF-8');
+    return (array_values(array_unique(array_filter(preg_split('/(\.|\||\{|\}|\<|\>|\(|\)|\:|\+|\›|\‹)/', $meaningString)))));
+  }
+
+
   public function storeMeaningClassification($meaning, $classification){
     $sql = "INSERT INTO `meaning_classification` SET `meaning` = :meaning, `classification` = :classification ON DUPLICATE KEY UPDATE `classification` = :classification";
     $this->execute($sql, [$meaning, $classification, $classification]);
@@ -27,6 +37,10 @@ class Abbreviation extends ConnectionUpdatable{
 
   public function listAbbreviations($source){
     return $this->queryList("SELECT * FROM `abbreviation` WHERE `source` = {$source} ORDER BY `abbreviation` ASC");
+  }
+
+  public function getAbbreviation($source, $abb){
+    return $this->query("SELECT `meaning` FROM `abbreviation` WHERE `source` = {$source} AND `abbreviation` = '{$abb}'")['meaning'];
   }
 
   public function updateAbbreviation($id, $abbreviation, $meaning){
