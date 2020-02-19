@@ -55,7 +55,7 @@ class Abbreviations extends Controller{
       'p' => 'Propriedade'
     ];
     foreach($abbv->parseMeanings($_GET['id']) as $m){
-      $st = $abbv->getMeaningClassification($m);
+      $st = $abbv->getMeaningClassification(htmlspecialchars($m, ENT_QUOTES, 'UTF-8'));
       $meanings[] = $st ? [$m, $class[$st['classification']], $st['classification']] : [$m, " ", " "];
     }
     return $meanings;
