@@ -12,7 +12,7 @@ class FeedSentence extends Controller {
 
   private static $sourceData;
 
-  private function checkAccess($sourceID){
+  private static function checkAccess($sourceID){
     $src = new Source;
     foreach($src->loadListAccess() as $row){
       if($row['id'] == $sourceID){
@@ -23,17 +23,17 @@ class FeedSentence extends Controller {
     return false;
   }
 
-  private function loadSentences($sourceID){
+  private static function loadSentences($sourceID){
     $sent = new Sentence;
     return $sent->sentenceList($sourceID);
   }
 
-  private function loadEncode($sourceID){
+  private static function loadEncode($sourceID){
     $enc = new Encode;
     return $enc->loadList($sourceID);
   }
 
-  private function getSentenceData($sentenceID, $sentences){
+  private static function getSentenceData($sentenceID, $sentences){
     $original = "";
     $gloss = "";
     foreach($sentences as $sent){
@@ -52,7 +52,7 @@ class FeedSentence extends Controller {
     ];
   }
 
-  private function storeEdit(){
+  private static function storeEdit(){
     if(isset($_POST['eoriginal'], $_POST['egloss'], $_POST['etranslation'], $_GET['sid'])){
       $cl = new Cleanse;
       $cl->killSentence($_GET['sid']);
@@ -63,7 +63,7 @@ class FeedSentence extends Controller {
     }
   }
 
-  private function storeSentence(){
+  private static function storeSentence(){
     if(isset($_POST['ioriginal'], $_POST['igloss'], $_POST['itranslation'])){
       $feed = new DataFeeder($_GET['id']);
       $feed->feed(htmlspecialchars($_POST['ioriginal'], ENT_QUOTES, 'UTF-8'),

@@ -6,7 +6,7 @@ use Ocun\Database\User\Profile;
 Class Welcome extends Controller{
 
 
-  private function logIn(){
+  private static function logIn(){
     if(isset($_POST['email'], $_POST['password'])){
       $prof = new Profile;
       $prof->authenticate($_POST['email'], $_POST['password']);

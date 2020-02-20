@@ -7,7 +7,7 @@ use Ocun\Database\User\Profile;
 Class CreateUser extends Controller{
 
 
-  private function ajaxCheckEmail($email){
+  private static function ajaxCheckEmail($email){
     $prof = new Profile;
     if($prof->checkEmailExists($email)){
       echo "true";
@@ -16,7 +16,7 @@ Class CreateUser extends Controller{
     }
   }
 
-  private function registerUser(){
+  private static function registerUser(){
     if(isset($_POST['name'])){
       $prof = new Profile;
       $prof->createUser($_POST['name'], $_POST['email'], $_POST['password']);

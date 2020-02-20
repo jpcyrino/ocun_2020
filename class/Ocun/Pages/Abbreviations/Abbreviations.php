@@ -7,7 +7,7 @@ use Ocun\Database\User\Session;
 
 class Abbreviations extends Controller{
 
-  private function checkAccess($sourceID){
+  private static function checkAccess($sourceID){
     $src = new Source;
     foreach($src->loadListAccess() as $row){
       if($row['id'] == $sourceID){
@@ -17,14 +17,14 @@ class Abbreviations extends Controller{
     return false;
   }
 
-  private function storeAbbreviation(){
+  private static function storeAbbreviation(){
     if(isset($_POST['abbreviation'], $_POST['meaning']) && $_POST['submit']=='Salvar'){
       $abbv = new Abbreviation;
       $abbv->storeAbbreviation($_GET['id'], htmlspecialchars($_POST['abbreviation'], ENT_QUOTES, 'UTF-8'), htmlspecialchars($_POST['meaning'], ENT_QUOTES, 'UTF-8'));
     }
   }
 
-  private function updateAbbreviation(){
+  private static function updateAbbreviation(){
     if(isset($_POST['eabbreviation'], $_POST['emeaning'], $_POST['abid']) && $_POST['submit'] == 'Atualizar'){
       $abbv = new Abbreviation;
       foreach($_POST['abid'] as $i => $row){
@@ -34,7 +34,7 @@ class Abbreviations extends Controller{
     }
   }
 
-  private function storeMeaningClassification(){
+  private static function storeMeaningClassification(){
     if(isset($_POST['sig'], $_POST['classif']) && $_POST['submit'] == 'Salvar'){
       $abbv = new Abbreviation;
       foreach($_POST['sig'] as $i => $row){
@@ -45,7 +45,7 @@ class Abbreviations extends Controller{
     }
   }
 
-  private function meanings(){
+  private static function meanings(){
     $abbv = new Abbreviation;
     $meanings = array();
     $class = [

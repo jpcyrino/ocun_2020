@@ -7,7 +7,7 @@ use Ocun\Database\User\Session;
 
 class SQLQuery extends Controller{
 
-  private function loadQuery(){
+  private static function loadQuery(){
     if(isset($_POST['query'], $_POST['submit'])){
       $conn = new Connection;
       return $conn->queryList($_POST['query']);

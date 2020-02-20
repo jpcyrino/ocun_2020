@@ -1,4 +1,4 @@
-<h1 style="font-size: 6rem; color: black;"><img src="img/ocun_tile.png" height="120px">òcun</span></h1>
+<h1 style="font-size: 6rem; color: black;"><img src="img/ocun_tile.png" height="100px">òcun</span></h1>
 
 
 <div id="text" style="display: block; border-style: solid; border-width: thin; padding: 10px; max-height: 30vh; overflow: scroll;">
