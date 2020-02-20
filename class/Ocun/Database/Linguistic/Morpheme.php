@@ -1,6 +1,7 @@
 <?php
 namespace Ocun\Database\Linguistic;
 use Ocun\Database\ConnectionUpdatable;
+use Ocun\Database\Linguistic\Cleanse;
 
 class Morpheme extends ConnectionUpdatable{
 
@@ -26,8 +27,21 @@ public function queryFromID($id){
 }
 
 public function updateMorpheme($source, $form, $meaning, $new_form, $new_meaning){
-  $sql = "UPDATE `morpheme` SET `form` = :form, `meaning` = :meaning WHERE `source` = {$source} AND `form` = '{$form}' AND `meaning` = '{$meaning}'";
-  $this->execute($sql, [$new_form, $new_meaning]);
+  //Check if new morpheme exists:
+  $sql = "SELECT `id` FROM `morpheme` WHERE `source` = {$source} AND `form` = '{$new_form}' AND `meaning` = '{$new_meaning}'";
+  $res = $this->query($sql);
+  if($res){
+    $sql = "UPDATE `chain`
+    SET `morpheme` = :id
+    WHERE `morpheme`= (SELECT `id` FROM `morpheme` WHERE `source` = :source AND `form` = :form AND `meaning` = :meaning)";
+    $this->execute($sql, [$res['id'], $source, $form, $meaning]);
+    $cl = new Cleanse;
+    $cl->cleanMorphemes();
+    $_GET['id'] = $res['id'];
+  } else{
+    $sql = "UPDATE `morpheme` SET `form` = :form, `meaning` = :meaning WHERE `source` = {$source} AND `form` = '{$form}' AND `meaning` = '{$meaning}'";
+    $this->execute($sql, [$new_form, $new_meaning]);
+  }
 }
 
 

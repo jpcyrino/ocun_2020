@@ -10,6 +10,13 @@ use Ocun\Statistics\Probability\MorphemeUnigram;
 
 class MorphemeInfo extends Controller{
 
+  private static function updateMorpheme(){
+    if(isset($_POST['source'], $_POST['old_form'], $_POST['old_meaning'], $_POST['form'], $_POST['meaning'])){
+      $mor = new Morpheme;
+      $mor->updateMorpheme($_POST['source'], $_POST['old_form'], $_POST['old_meaning'], $_POST['form'], $_POST['meaning']);
+    }
+  }
+
   private static function getMorphemeData(){
     $mor = new Morpheme;
     $thisMorpheme = $mor->queryFromID($_GET['id']);
@@ -93,12 +100,18 @@ class MorphemeInfo extends Controller{
     if (!isset($_GET['id'])){
       session::denyAccess(8);
     }
+    if(isset($_POST['source'])){
+      self::updateMorpheme();
+    }
+    $s = new Sentence;
     $md = self::getMorphemeData();
     echo self::loadTemplate("/../MorphemeInfo/template.html.php", [
+      'morphemeUpdatable' => $_SESSION['level'] > 4 ? True : False,
       'morphemeData' => $md,
       'unigram' => self::getMorphemeUnigramStats($md),
       'bigram' => self::getMeaningBigrams($md),
-      'meanings' => self::getMeaningClassificationData($md)
+      'meanings' => self::getMeaningClassificationData($md),
+      'sentences' => $s->sentenceListByMorpheme($_GET['id'])
     ]);
 
   }

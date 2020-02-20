@@ -34,7 +34,7 @@ Class Source extends ConnectionUpdatable{
 
   public function loadList(){
     try {
-      $sql = "SELECT * FROM `source` ORDER BY `name` ASC";
+      $sql = "SELECT `source`.* FROM `source`, `language` WHERE `source`.`language` = `language`.`id` ORDER BY `language`.`name` ASC";
       return $this->connection->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e){
       OcunException::printException($e);
@@ -43,7 +43,7 @@ Class Source extends ConnectionUpdatable{
   }
 
   public function getInfo($id){
-    $sql = "SELECT *, `source`.`name` AS `title` FROM `source`, `language` WHERE `language`.`id` = `source`.`language` AND `source`.`id` = {$id}";
+    $sql = "SELECT *, `source`.`id` AS `sid`, `source`.`name` AS `title` FROM `source`, `language` WHERE `language`.`id` = `source`.`language` AND `source`.`id` = {$id}";
     return $this->query($sql);
   }
 

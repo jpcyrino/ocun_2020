@@ -11,7 +11,7 @@ class Abbreviation extends ConnectionUpdatable{
       $meaningArray[] = $row['meaning'];
     }
     $meaningString = html_entity_decode(implode(".", array_unique(array_map('trim',$meaningArray))), ENT_QUOTES, 'UTF-8');
-    return (array_values(array_unique(array_filter(preg_split('/(\.|\||\{|\}|\<|\>|\(|\)|\:|\+|\›|\‹)/', $meaningString)))));
+    return (array_values(array_unique(array_filter(preg_split('/(\.|\{|\}|\<|\>|\(|\)|\:|\+|\›|\‹)/', $meaningString)))));
   }
 
   public function parseMeaningFromMorphemeId($id){
@@ -20,7 +20,7 @@ class Abbreviation extends ConnectionUpdatable{
       $meaningArray[] = $row['meaning'];
     }
     $meaningString = html_entity_decode(implode(".", array_unique(array_map('trim',$meaningArray))), ENT_QUOTES, 'UTF-8');
-    return (array_values(array_unique(array_filter(preg_split('/(\.|\||\{|\}|\<|\>|\(|\)|\:|\+|\›|\‹)/', $meaningString)))));
+    return (array_values(array_unique(array_filter(preg_split('/(\.|\{|\}|\<|\>|\(|\)|\:|\+|\›|\‹)/', $meaningString)))));
   }
 
 

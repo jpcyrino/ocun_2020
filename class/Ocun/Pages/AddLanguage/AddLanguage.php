@@ -17,20 +17,25 @@ class AddLanguage extends Controller{
   private static function handlePOST(){
     if(self::checkPOST()){
         $lang = new Language;
-        return $lang->store([$_POST['name']]);
+        return $lang->store([$_POST['name'], $_POST['info']]);
     } else {
       return false;
     }
   }
 
-// Elaborar funcionamento dos templates.. frontend..
   public static function load() {
     Session::denyAccess(3);
-    if(self::handlePOST()){
+    if(self::handlePOST() && !isset($_GET['id'])){
       header("Location: index.php?page=AddSource");
       die();
     }
-    echo self::loadTemplate("/../AddLanguage/template.html.php");
+    if(isset($_GET['id'])){
+      $l = new Language;
+      echo self::loadTemplate("/../AddLanguage/template.html.php", ['language' => $l->loadInfo($_GET['id'])]);
+    } else{
+      echo self::loadTemplate("/../AddLanguage/template.html.php");
+    }
+
   }
 
 }
