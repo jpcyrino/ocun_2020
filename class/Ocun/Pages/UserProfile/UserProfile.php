@@ -11,11 +11,14 @@ Class UserProfile extends Controller{
     if(isset($_GET['email'])){
       $p->changePassword($_GET['email'], $_POST['password_new']);
       return "Sucesso! Faça login com sua nova senha para acessar o sistema!";
+      $_POST = array();
     } else {
       if($p->authenticate($_SESSION['user'], $_POST['password_old'])){
         $p->changePassword($_SESSION['user'], $_POST['password_new']);
+        $_POST = array();
         return "Senha alterada com sucesso!";
       } else {
+        $_POST = array();
         return "Senha antiga incorreta.";
       }
     }

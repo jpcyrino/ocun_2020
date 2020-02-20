@@ -1,14 +1,30 @@
-<h1>Bem vindo!</h1>
+<h1 style="font-size: 6rem; color: black;"><img src="img/ocun_tile.png" height="120px">òcun</span></h1>
 
-<div id="text" style="display: block;">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod vestibulum magna, tempor luctus dui ultricies vitae. Vivamus quis ligula tempus, tincidunt est a, tincidunt nibh. Donec ante ipsum, ornare et posuere at, volutpat ut nibh. Proin dictum, leo a dictum posuere, diam tortor bibendum urna, in aliquam magna leo quis ante. Phasellus dignissim ante at odio ultrices, a eleifend orci sagittis. Donec vestibulum faucibus sem ut consequat. Sed ultrices, nunc imperdiet faucibus dignissim, nisl tortor malesuada sem, ac interdum turpis ipsum quis mauris.
 
-Pellentesque condimentum urna id felis volutpat, sit amet molestie urna porta. Suspendisse a dui sit amet nulla iaculis venenatis. Sed tristique urna vitae odio feugiat, vel posuere dui iaculis. Maecenas nisl ex, volutpat sagittis eros eget, volutpat posuere ante. Vestibulum lobortis suscipit leo a facilisis. Mauris nisi orci, rutrum in eros quis, egestas molestie augue. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse potenti. Cras efficitur bibendum sapien, sed malesuada arcu efficitur eu. Curabitur interdum, sem sed porttitor tempus, felis nisl dignissim libero, ac congue dui ex et velit. Integer accumsan dignissim purus eu cursus. Vivamus suscipit porttitor lectus nec laoreet. Cras sollicitudin ornare neque, quis condimentum urna ornare vel. Praesent dictum, eros a elementum commodo, mi nisi aliquet velit, et sagittis libero dolor non nunc. In condimentum rhoncus bibendum.
-
-Vivamus sit amet sem aliquam, lacinia velit vel, fermentum sapien. Praesent a cursus nunc. Etiam ornare dictum libero vitae venenatis. Aenean a libero quis enim porta consectetur. Sed sem mi, finibus ut quam a, faucibus porta mi. Nulla ut eros eu augue blandit mattis. Duis faucibus, lectus in elementum ullamcorper, odio metus pulvinar ipsum, ac fringilla sapien arcu ac arcu. Nulla tempus viverra nulla, vitae tempus lectus sagittis et. Pellentesque pulvinar ex vitae efficitur fringilla. Phasellus sem mi, aliquam ac pharetra at, venenatis mollis diam. Donec at mi vestibulum, suscipit lacus id, cursus ipsum. Nulla malesuada mattis rhoncus. Nam risus massa, commodo nec blandit ac, varius eu mi. Donec pulvinar quam vel nulla sollicitudin, in posuere diam facilisis. Nunc a consectetur erat.
-
-Morbi et cursus orci, vitae feugiat nisi. Pellentesque eget ultricies mi. Sed id fringilla orci, eget aliquam est. Sed turpis velit, dignissim nec pulvinar sed, gravida sed felis. Maecenas hendrerit metus ut lacus hendrerit semper. Cras sit amet scelerisque nulla, ac rhoncus mi. Quisque efficitur tortor euismod, mollis erat ut, mattis purus. Duis iaculis diam sit amet nunc hendrerit tincidunt. Sed rutrum urna consectetur metus viverra dictum. Aenean eget lacus tellus. Sed sodales, neque ut bibendum finibus, quam est ultricies ex, vitae elementum lacus erat eu ante. Aenean eu porta tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rhoncus nisl ut rutrum laoreet. Aliquam efficitur consequat lacus nec pharetra.
-
-Proin eu orci iaculis, feugiat leo mattis, euismod neque. Donec eu mauris ac augue vulputate imperdiet. Quisque odio sem, laoreet sed mi sed, aliquam porttitor urna. Vestibulum volutpat dapibus elit, et varius orci accumsan non. Mauris finibus sed neque vitae vulputate. Morbi venenatis diam tellus, nec aliquet erat euismod id. Etiam metus enim, tristique et vulputate at, tempor eu lorem. Fusce ullamcorper blandit eros vitae faucibus. Phasellus elementum convallis ligula sed bibendum. Aliquam nisl mauris, sagittis et leo in, elementum porta risus. Vivamus ac elit enim. Vestibulum sit amet augue neque.
-
+<div id="text" style="display: block; border-style: solid; border-width: thin; padding: 10px; max-height: 30vh; overflow: scroll;">
+<h2>Bem vindo(a) à plataforma Òcun!</h2>
+<br>
+<p>A plataforma òcun é uma tecnologia em desenvolvimento pelo <a href="http://www.latip.com.br">Laboratório de Tipologia Linguística</a> da Universidade Federal da Bahia
+  para o armazenamento, visualização e análise estatística de dados de gramáticas descritivas das diversas línguas do mundo.<p>
+<br>
+<p>O principal intuito desta ferramenta é auxiliar nos trabalhos de pesquisa do Laboratório. Também desejamos transformá-la em uma ferramenta que possa ser útil para os demais linguistas, principalmente aqueles
+interessados em comparação de línguas e abordagens probabilísticas da gramática.</p>
+<br>
+<p> Você pode acessar a plataforma fazendo seu cadastro <a href="?page=CreateUser">aqui</a>!</p>
+</div>
+<br>
+<br>
+<div class="form-field" style="border-style: solid; border-width: thin; padding: 10px; max-height: 20vh; overflow:scroll; ">
+  <h3>Change log</h3>
+  <p>Vesão atual: 0.3.0</p>
+  <br>
+  <p><b> v0.3.0 - 20 de fevereiro de 2020: </b></p>
+  <ul>
+    <li>Nova estrutura de banco de dados.</li>
+    <li>Nova interface, mais simples, para acelerar o desenvolvimento.</li>
+    <li>Possibilidade de editar dados</li>
+    <li>Estatísticas da fonte: histogramas de probabilidade e complexidade (-logP), tabelas de frequência de morfemas, formas e significados.</li>
+    <li>Estatísticas de frase: gráficos de barra com probabilidade simples e condicional (segunda ordem) de cada morfema da frase. </li>
+    <li>Estatísticas de morfema: Informação mútua normalizada para morfemas sucessores e antecessores</li>
+  </ul>
 </div>
