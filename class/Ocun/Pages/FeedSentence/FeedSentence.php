@@ -72,7 +72,7 @@ class FeedSentence extends Controller {
     }
   }
 
-  private function deleteSentence(){
+  private static function deleteSentence(){
     if(isset($_GET['delete'])){
       $cl = new Cleanse;
       $cl->killSentence($_GET['delete']);
