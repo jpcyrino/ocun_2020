@@ -38,11 +38,17 @@ public static function load(){
     Session::denyAccess(8);
   }
   $s = new Sentence;
+  if(isset($_GET['sent']) && $_GET['sent'] == "True"){
+    echo self::loadTemplate("/../SourceInfo/sentence.html.php", [
+      'sourceData' => $sourceData,
+      'sentences' => $s->sentenceList($_GET['id'])
+    ]);
+  } else {
   echo self::loadTemplate("/../SourceInfo/template.html.php", [
     'sourceData' => $sourceData,
     'sentences' => $s->sentenceList($_GET['id'])
   ]);
-
+}
 }
 
 

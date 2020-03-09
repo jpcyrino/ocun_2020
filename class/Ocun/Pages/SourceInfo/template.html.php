@@ -5,6 +5,7 @@
 <p><b>Nome: </b><?=$sourceData['title']?></p>
 <p><b>Autor: </b><?=$sourceData['author']?></p>
 <p><b>Ano: </b><?=$sourceData['year']?></p>
+<p><a href="?page=SourceInfo&id=<?=$_GET['id']?>&sent=True" target="_blank">Abrir modo texto...</a></p>
 </form>
 <br>
 <br>
@@ -45,10 +46,6 @@
 <br>
 <?php endforeach;?>
 </div>
-
-
-
-
 
 
 <script src="js/sourceinfo.js" type="text/javascript">

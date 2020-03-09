@@ -16,7 +16,12 @@ interessados em comparação de línguas e abordagens probabilísticas da gramá
 <br>
 <div class="form-field" style="border-style: solid; border-width: thin; padding: 10px; max-height: 20vh; overflow:scroll; ">
   <h3>Change log</h3>
-  <p>Vesão atual: 0.3.0</p>
+  <p>Vesão atual: 0.3.1</p>
+  <br>
+  <p><b> v0.3.1 - 09 de março de 2020: </b></p>
+  <ul>
+    <li>Modo texto: abre todos os dados de uma fonte com a formatação ideal para copiar e colar em outros lugares.</li>
+  </ul>
   <br>
   <p><b> v0.3.0 - 20 de fevereiro de 2020: </b></p>
   <ul>
